@@ -130,13 +130,20 @@
       <DependentUpon>ObjectExplorerForm.cs</DependentUpon>
     </Compile>
     <Compile Include="UI\IFormsFactory.cs" />
-    <Compile Include="UI\Implementation\FormsFactory.cs" />
+    <Compile Include="UI\Forms\Factories\FormsFactory.cs" />
+    <Compile Include="Interfaces\Model\NodeInfo.cs" />
+    <Compile Include="Interfaces\Model\TreeNode.cs" />
+    <Compile Include="Interfaces\Presenters\ObjectExplorerPresenter.cs" />
+    <Compile Include="Interfaces\Views\IObjectExplorerView.cs" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <SubType>Designer</SubType>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UI\Forms\ObjectExplorerForm.resx">
+      <DependentUpon>ObjectExplorerForm.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>

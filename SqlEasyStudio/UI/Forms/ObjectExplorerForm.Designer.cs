@@ -28,11 +28,31 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.components = new System.ComponentModel.Container();
+            this._tree = new System.Windows.Forms.TreeView();
+            this.SuspendLayout();
+            // 
+            // _tree
+            // 
+            this._tree.Dock = System.Windows.Forms.DockStyle.Fill;
+            this._tree.Location = new System.Drawing.Point(0, 0);
+            this._tree.Name = "_tree";
+            this._tree.Size = new System.Drawing.Size(284, 384);
+            this._tree.TabIndex = 1;
+            // 
+            // ObjectExplorerForm
+            // 
+            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.ClientSize = new System.Drawing.Size(284, 384);
+            this.Controls.Add(this._tree);
+            this.Name = "ObjectExplorerForm";
             this.Text = "ObjectExplorerForm";
+            this.ResumeLayout(false);
+
         }
 
         #endregion
+
+        private System.Windows.Forms.TreeView _tree;
     }
 }

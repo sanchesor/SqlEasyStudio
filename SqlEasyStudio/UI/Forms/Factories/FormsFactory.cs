@@ -5,7 +5,7 @@ using System.Text;
 using System.Windows.Forms;
 using SqlEasyStudio.UI.Forms;
 
-namespace SqlEasyStudio.UI.Implementation
+namespace SqlEasyStudio.UI.Forms.Factories
 {
     public class FormsFactory : IFormsFactory
     {
@@ -13,7 +13,7 @@ namespace SqlEasyStudio.UI.Implementation
         {
             switch(name)
             {
-                case "object_explorer": return new ObjectExplorerForm(); break;
+                case "object_explorer": return new ObjectExplorerForm(); 
             }
 
             throw new Exception("Unknown form name");

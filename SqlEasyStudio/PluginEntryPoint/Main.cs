@@ -5,10 +5,8 @@ using System;
 using System.Runtime.InteropServices;
 using SqlEasyStudio.Properties;
 using SqlEasyStudio.PlaginGateway;
-using SqlEasyStudio.UI;
-using SqlEasyStudio.UI.Implementation;
 using System.Windows.Forms;
-using SqlEasyStudio.PluginGateway.PluginForm;
+using SqlEasyStudio.UI.Forms.Factories;
 
 /// <summary>
 /// 
@@ -25,8 +23,9 @@ namespace Kbg.NppPluginNET
         /// </summary>
         public const string PluginName = "Sql Easy Studio";
         static Bitmap tbBmp = Resources.ses;
+        static FormsFactory formsFactory = new FormsFactory();
         static PluginFormContainer pluginFormContainer = new PluginFormContainer();
-        static IFormsFactory formsFactory = new FormsFactory();
+        
 
         public static void OnNotification(ScNotification notification)
         {            
