@@ -4,7 +4,11 @@ using System.Drawing;
 using System;
 using System.Runtime.InteropServices;
 using SqlEasyStudio.Properties;
-
+using SqlEasyStudio.PlaginGateway;
+using SqlEasyStudio.UI;
+using SqlEasyStudio.UI.Implementation;
+using System.Windows.Forms;
+using SqlEasyStudio.PluginGateway.PluginForm;
 
 /// <summary>
 /// 
@@ -19,24 +23,21 @@ namespace Kbg.NppPluginNET
         /// <summary>
         /// 
         /// </summary>
-        public const string PluginName = "ssss";
-
+        public const string PluginName = "Sql Easy Studio";
         static Bitmap tbBmp = Resources.ses;
-        static Bitmap tbBmp_tbTab = Resources.ses_bmp;
-
+        static PluginFormContainer pluginFormContainer = new PluginFormContainer();
+        static IFormsFactory formsFactory = new FormsFactory();
 
         public static void OnNotification(ScNotification notification)
-        {
-            
+        {            
         }
 
         /// <summary>
         /// 
         /// </summary>
         internal static void CommandMenuInit()
-        {
-            
-            PluginBase.SetCommand(0, "Object explorer", ToggleAllWindows);
+        {            
+            PluginBase.SetCommand(0, "Object explorer", ToggleObjectExplorer);
         }
 
         /// <summary>
@@ -57,14 +58,21 @@ namespace Kbg.NppPluginNET
         /// 
         /// </summary>
         internal static void PluginCleanUp()
-        {
-            
+        {            
         }
 
-        internal static void ToggleAllWindows()
-        {
-
-
+        internal static void ToggleObjectExplorer()
+        {            
+            if(!pluginFormContainer.Forms.ContainsKey("object_explorer"))
+            {
+                Form objectExplorerForm = formsFactory.Create("object_explorer");
+                pluginFormContainer.Register("object_explorer", objectExplorerForm, "Object explorer", 0, NppTbMsg.DWS_DF_CONT_LEFT);
+            }
+            else
+            {
+                pluginFormContainer.Forms["object_explorer"].ToggleVisible();
+            }
+                        
         }
 
     }
