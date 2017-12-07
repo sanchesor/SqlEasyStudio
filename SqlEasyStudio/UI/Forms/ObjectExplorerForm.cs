@@ -1,6 +1,7 @@
 ﻿using SqlEasyStudio.Interfaces.Presenters;
 using SqlEasyStudio.Interfaces.Views;
 using System;
+using System.Collections.Generic;
 using System.Drawing;
 using System.Windows.Forms;
 
@@ -13,6 +14,17 @@ namespace SqlEasyStudio.UI.Forms
 
         public event EventHandler TreeMouseClick;
         public event EventHandler Loaded;
+
+        public ICollection<Interfaces.Models.TreeNode> Nodes
+        {
+            get
+            {
+                foreach(var node in _tree.Nodes)
+                {
+                    yield return JAK TO SIĘ ROBI !!??
+                }
+            }
+        }
 
         public ObjectExplorerForm()
         {

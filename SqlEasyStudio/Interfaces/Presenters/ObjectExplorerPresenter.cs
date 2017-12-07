@@ -1,11 +1,14 @@
-﻿using SqlEasyStudio.Interfaces.Views;
+﻿using SqlEasyStudio.Application.Interfaces;
+using SqlEasyStudio.Interfaces.Views;
 using System;
 
 namespace SqlEasyStudio.Interfaces.Presenters
 {
     public class ObjectExplorerPresenter
     {
-        public IObjectExplorerView View { get; internal set; }        
+        private IObjectExplorerView View;
+        private IObjectExplorerLoader ObjectExplorerLoader;
+
 
         public ObjectExplorerPresenter(IObjectExplorerView view)
         {
@@ -23,7 +26,11 @@ namespace SqlEasyStudio.Interfaces.Presenters
 
         private void View_Load(object sender, EventArgs e)
         {
-            
+            var tree = ObjectExplorerLoader.Load();
+            foreach(var node in tree.Nodes)
+            {
+                node
+            }
         }
     }
 }

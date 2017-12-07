@@ -97,6 +97,13 @@
     <Reference Include="WindowsBase" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Application\Interfaces\IObjectExplorerLoader.cs" />
+    <Compile Include="Application\Models\Enums\ObjectExplorerNodeType.cs" />
+    <Compile Include="Application\Models\ObjectExplorerTree.cs" />
+    <Compile Include="Application\Models\ObjectExplorerTreeNode.cs" />
+    <Compile Include="Application\Implementation\ObjectExplorerLoader.cs" />
+    <Compile Include="Domain\Connection.cs" />
+    <Compile Include="Domain\Repositories\IConnectionRepository.cs" />
     <Compile Include="Infrastructure\Validation\Validate.cs" />
     <Compile Include="PluginGateway\Editor\IDocument.cs" />
     <Compile Include="PluginGateway\Editor\IEditor.cs" />
@@ -155,10 +162,7 @@
     <None Include="PluginEntryPoint\Resources\ses.png" />
     <None Include="PluginEntryPoint\Resources\ses_bmp.bmp" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Application\" />
-    <Folder Include="Domain\" />
-  </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <Import Project="$(MSBuildProjectDirectory)\PluginEntryPoint\PluginInfrastructure\DllExport\NppPlugin.DllExport.targets" />
   <Import Condition="Exists('$(DevEnvDir)\..\..\VC\Auxiliary\Build')" Project="$(DevEnvDir)\..\..\VC\Auxiliary\Build\Microsoft.VCToolsVersion.default.props" />
