@@ -15,16 +15,7 @@ namespace SqlEasyStudio.UI.Forms
         public event EventHandler TreeMouseClick;
         public event EventHandler Loaded;
 
-        public ICollection<Interfaces.Models.TreeNode> Nodes
-        {
-            get
-            {
-                foreach(var node in _tree.Nodes)
-                {
-                    yield return JAK TO SIĘ ROBI !!??
-                }
-            }
-        }
+
 
         public ObjectExplorerForm()
         {

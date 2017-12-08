@@ -9,6 +9,6 @@ namespace SqlEasyStudio.Interfaces.Views
         event EventHandler Loaded;
         event EventHandler TreeMouseClick;
 
-        ICollection<TreeNode> Nodes { get; }
+        //ICollection<TreeNode> Nodes { get; }
     }
 }

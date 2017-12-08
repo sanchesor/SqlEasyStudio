@@ -27,10 +27,7 @@ namespace SqlEasyStudio.Interfaces.Presenters
         private void View_Load(object sender, EventArgs e)
         {
             var tree = ObjectExplorerLoader.Load();
-            foreach(var node in tree.Nodes)
-            {
-                node
-            }
+
         }
     }
 }
