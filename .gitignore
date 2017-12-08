@@ -1,3 +1,12 @@
 obj
 bin
 .vs
+StructureMap.4.5.3.nupkg
+StructureMap.dll
+StructureMap.xml
+System.Reflection.Emit.Lightweight.4.3.0.nupkg
+ThirdPartyNotices.txt
+dotnet_library_license.txt
+_._
+System.Reflection.Emit.Lightweight.dll
+System.Reflection.Emit.Lightweight.xml
