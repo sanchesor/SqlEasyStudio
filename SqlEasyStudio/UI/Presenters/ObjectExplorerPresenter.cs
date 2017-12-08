@@ -1,8 +1,11 @@
 ﻿using SqlEasyStudio.Application.Interfaces;
-using SqlEasyStudio.Interfaces.Views;
+using SqlEasyStudio.Application.Models;
+using SqlEasyStudio.UI.Views;
 using System;
+using System.Collections.Generic;
+using SqlEasyStudio.UI.Models;
 
-namespace SqlEasyStudio.Interfaces.Presenters
+namespace SqlEasyStudio.UI.Presenters
 {
     public class ObjectExplorerPresenter
     {
@@ -26,8 +29,19 @@ namespace SqlEasyStudio.Interfaces.Presenters
 
         private void View_Load(object sender, EventArgs e)
         {
+            /*
             var tree = ObjectExplorerLoader.Load();
+            LoadTree(null, tree.Nodes);
+            */
+
+            var t1 = new UITreeNode() { Text = "haha" };
+            View.Nodes.Add(t1);
+
+            var t2 = new UITreeNode() { Text = "haha" };
+            t1.Nodes.Add(t2);
 
         }
+
+
     }
 }

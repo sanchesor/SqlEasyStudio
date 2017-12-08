@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
-namespace SqlEasyStudio.Interfaces.Models
+namespace SqlEasyStudio.UI.Models
 {
     public enum NodeType
     {

@@ -1,10 +1,13 @@
-﻿using SqlEasyStudio.Interfaces.Presenters;
-using SqlEasyStudio.Interfaces.Views;
+﻿using SqlEasyStudio.UI.Presenters;
+using SqlEasyStudio.UI.Views;
 using System;
-using System.Collections.Generic;
-using System.Drawing;
 using System.Windows.Forms;
-
+using SqlEasyStudio.UI.Models;
+using System.Collections.Generic;
+using System.Collections;
+using System.Linq;
+using SqlEasyStudio.UI.Model;
+using SqlEasyStudio.UI.Forms.Implementation;
 
 namespace SqlEasyStudio.UI.Forms
 {
@@ -15,19 +18,22 @@ namespace SqlEasyStudio.UI.Forms
         public event EventHandler TreeMouseClick;
         public event EventHandler Loaded;
 
-
+        public IUITreeNodeCollection<UITreeNode> Nodes => new UITreeNodeCollection(_tree.Nodes);
 
         public ObjectExplorerForm()
         {
             InitializeComponent();
 
             VisibleChanged += ObjectExplorerForm_VisibleChanged;
-            _tree.MouseClick += _tree_MouseClick;
+            _tree.MouseClick += _tree_MouseClick;            
 
             presenter = new ObjectExplorerPresenter(this);
         }
 
         bool _isLoaded = false;
+
+        
+
         private void ObjectExplorerForm_VisibleChanged(object sender, EventArgs e)
         {
             if (!_isLoaded)
@@ -41,6 +47,6 @@ namespace SqlEasyStudio.UI.Forms
         {
             TreeMouseClick?.Invoke(sender, e);
         }
-        
+
     }
 }

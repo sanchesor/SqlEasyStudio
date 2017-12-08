@@ -139,6 +139,7 @@
     <Compile Include="PluginGateway\PluginForm\IPluginForm.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="PluginEntryPoint\PluginInfrastructure\UnmanagedExports.cs" />
+    <Compile Include="UI\Forms\Implementation\UITreeNodeCollection.cs" />
     <Compile Include="UI\Forms\ObjectExplorerForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -147,10 +148,11 @@
     </Compile>
     <Compile Include="UI\IFormsFactory.cs" />
     <Compile Include="UI\Forms\Factories\FormsFactory.cs" />
-    <Compile Include="Interfaces\Model\NodeInfo.cs" />
-    <Compile Include="Interfaces\Model\TreeNode.cs" />
-    <Compile Include="Interfaces\Presenters\ObjectExplorerPresenter.cs" />
-    <Compile Include="Interfaces\Views\IObjectExplorerView.cs" />
+    <Compile Include="UI\Model\IUITreeNodeCollection.cs" />
+    <Compile Include="UI\Model\NodeInfo.cs" />
+    <Compile Include="UI\Model\UITreeNode.cs" />
+    <Compile Include="UI\Presenters\ObjectExplorerPresenter.cs" />
+    <Compile Include="UI\Views\IObjectExplorerView.cs" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Properties\Resources.resx">

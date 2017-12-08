@@ -24,8 +24,7 @@ namespace Kbg.NppPluginNET
         public const string PluginName = "Sql Easy Studio";
         static Bitmap tbBmp = Resources.ses;
         static FormsFactory formsFactory = new FormsFactory();
-        static PluginFormContainer pluginFormContainer = new PluginFormContainer();
-        
+        static PluginFormContainer pluginFormContainer = new PluginFormContainer();                
 
         public static void OnNotification(ScNotification notification)
         {            
@@ -61,7 +60,8 @@ namespace Kbg.NppPluginNET
         }
 
         internal static void ToggleObjectExplorer()
-        {            
+        {
+                       
             if(!pluginFormContainer.Forms.ContainsKey("object_explorer"))
             {
                 Form objectExplorerForm = formsFactory.Create("object_explorer");
