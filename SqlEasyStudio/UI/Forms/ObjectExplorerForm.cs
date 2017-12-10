@@ -2,12 +2,10 @@
 using SqlEasyStudio.UI.Views;
 using System;
 using System.Windows.Forms;
-using SqlEasyStudio.UI.Models;
-using System.Collections.Generic;
-using System.Collections;
-using System.Linq;
 using SqlEasyStudio.UI.Model;
 using SqlEasyStudio.UI.Forms.Implementation;
+using System.Linq;
+using System.Collections.Generic;
 
 namespace SqlEasyStudio.UI.Forms
 {
@@ -16,23 +14,22 @@ namespace SqlEasyStudio.UI.Forms
         private ObjectExplorerPresenter presenter;
 
         public event EventHandler TreeMouseClick;
-        public event EventHandler Loaded;
-
-        public IUITreeNodeCollection<UITreeNode> Nodes => new UITreeNodeCollection(_tree.Nodes);
+        public event EventHandler Loaded;        
 
         public ObjectExplorerForm()
         {
-            InitializeComponent();
+            InitializeComponent();            
 
             VisibleChanged += ObjectExplorerForm_VisibleChanged;
-            _tree.MouseClick += _tree_MouseClick;            
+            _tree.MouseClick += _tree_MouseClick;
 
             presenter = new ObjectExplorerPresenter(this);
+            
         }
 
         bool _isLoaded = false;
 
-        
+        public ITreeNodeCollection<ITreeNode> Nodes => new FormsTreeNodeCollection(_tree.Nodes);
 
         private void ObjectExplorerForm_VisibleChanged(object sender, EventArgs e)
         {

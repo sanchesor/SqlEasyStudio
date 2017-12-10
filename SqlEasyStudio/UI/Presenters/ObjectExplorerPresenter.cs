@@ -3,14 +3,17 @@ using SqlEasyStudio.Application.Models;
 using SqlEasyStudio.UI.Views;
 using System;
 using System.Collections.Generic;
-using SqlEasyStudio.UI.Models;
+using SqlEasyStudio.UI.Model;
+using SqlEasyStudio.UI.Forms.Implementation;
+using SqlEasyStudio.Infrastructure.IoC;
+using SqlEasyStudio.Filesystem;
 
 namespace SqlEasyStudio.UI.Presenters
 {
     public class ObjectExplorerPresenter
     {
         private IObjectExplorerView View;
-        private IObjectExplorerLoader ObjectExplorerLoader;
+        //private IObjectExplorerLoader ObjectExplorerLoader;
 
 
         public ObjectExplorerPresenter(IObjectExplorerView view)
@@ -29,16 +32,13 @@ namespace SqlEasyStudio.UI.Presenters
 
         private void View_Load(object sender, EventArgs e)
         {
-            /*
-            var tree = ObjectExplorerLoader.Load();
-            LoadTree(null, tree.Nodes);
-            */
-
-            var t1 = new UITreeNode() { Text = "haha" };
-            View.Nodes.Add(t1);
-
-            var t2 = new UITreeNode() { Text = "haha" };
-            t1.Nodes.Add(t2);
+            //var loader = ContainerDelivery.GetContainer().Resolve<IObjectExplorerLoader>();
+            var loader = new XMLObjectExplorerLoader();
+            foreach(var node in loader.Load().Nodes)
+            {
+                View.Nodes.Add(node);
+            }
+            
 
         }
 

@@ -2,30 +2,37 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Collections;
 using System.Windows.Forms;
-using SqlEasyStudio.UI.Models;
+using SqlEasyStudio.Application.Models;
 
 namespace SqlEasyStudio.UI.Forms.Implementation
 {
-    public class UITreeNodeCollection : IUITreeNodeCollection<UITreeNode>
+    public class FormsTreeNodeCollection : ITreeNodeCollection<ITreeNode>
     {
         TreeNodeCollection nodes;
 
-        public UITreeNodeCollection(TreeNodeCollection nodes)
+        public FormsTreeNodeCollection(TreeNodeCollection nodes)
         {
             this.nodes = nodes;
         }
-
+        
         public int Count => nodes.Count;
 
         public bool IsReadOnly => nodes.IsReadOnly;
 
-        public void Add(UITreeNode item)
+        public void Add(ITreeNode item)
         {
             nodes.Add(new TreeNode() {Text = item.Text, Tag = item});
+        }
+
+        public ITreeNode Add(ObjectExplorerTreeNode node)
+        {
+            return new FormsTreeNode(nodes.Add(node.Name))
+            {
+                NodeInfo = new NodeInfo() { Name = node.Name },
+                Text = node.Name
+            };
         }
 
         public void Clear()
@@ -33,22 +40,22 @@ namespace SqlEasyStudio.UI.Forms.Implementation
             nodes.Clear();
         }
 
-        public bool Contains(UITreeNode item)
+        public bool Contains(ITreeNode item)
         {
             return nodes.Cast<TreeNode>().Any(tn => tn.Tag == item);
         }
 
-        public void CopyTo(UITreeNode[] array, int arrayIndex)
+        public void CopyTo(ITreeNode[] array, int arrayIndex)
         {
-            throw new NotImplementedException();
+            nodes.CopyTo(array, arrayIndex);
         }
 
-        public IEnumerator<UITreeNode> GetEnumerator()
+        public IEnumerator<ITreeNode> GetEnumerator()
         {
-            return nodes.Cast<TreeNode>().Select(tn => tn.Tag as UITreeNode).GetEnumerator();
+            return nodes.Cast<TreeNode>().Select(tn => tn.Tag as FormsTreeNode).GetEnumerator();
         }
 
-        public bool Remove(UITreeNode item)
+        public bool Remove(ITreeNode item)
         {
             TreeNode treeNode = nodes.Cast<TreeNode>().First(tn => tn.Tag == item);
             if(!nodes.Contains(treeNode))
@@ -61,6 +68,6 @@ namespace SqlEasyStudio.UI.Forms.Implementation
         IEnumerator IEnumerable.GetEnumerator()
         {
             return nodes.GetEnumerator();
-        }
+        }        
     }
 }

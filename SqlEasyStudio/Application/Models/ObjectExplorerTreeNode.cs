@@ -11,5 +11,6 @@ namespace SqlEasyStudio.Application.Models
         public ObjectExplorerNodeType NodeType { get; set; }
         public string Name { get; set; }
         public object Info { get; set; }
+        public List<ObjectExplorerTreeNode> Nodes { get; set; }
     }
 }

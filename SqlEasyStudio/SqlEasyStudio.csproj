@@ -110,9 +110,18 @@
     <Compile Include="Application\Models\Enums\ObjectExplorerNodeType.cs" />
     <Compile Include="Application\Models\ObjectExplorerTree.cs" />
     <Compile Include="Application\Models\ObjectExplorerTreeNode.cs" />
-    <Compile Include="Application\Implementation\ObjectExplorerLoader.cs" />
     <Compile Include="Domain\Connection.cs" />
     <Compile Include="Domain\Repositories\IConnectionRepository.cs" />
+    <Compile Include="Filesystem\XMLObjectExplorerLoader.cs" />
+    <Compile Include="Infrastructure\IoC\Attributes\ComponentAttribute.cs" />
+    <Compile Include="Infrastructure\IoC\ContainerDelivery.cs" />
+    <Compile Include="Infrastructure\IoC\Container\IContainer.cs" />
+    <Compile Include="Infrastructure\IoC\Container\LifeCycle.cs" />
+    <Compile Include="Infrastructure\IoC\Container\RegisteredObject.cs" />
+    <Compile Include="Infrastructure\IoC\Container\SimpleIocContainer.cs" />
+    <Compile Include="Infrastructure\IoC\Container\TypeNotRegisteredException.cs" />
+    <Compile Include="Infrastructure\IoC\Extensions\TypeExtensions.cs" />
+    <Compile Include="Infrastructure\IoC\IoCHelper.cs" />
     <Compile Include="Infrastructure\Validation\Validate.cs" />
     <Compile Include="PluginGateway\Editor\IDocument.cs" />
     <Compile Include="PluginGateway\Editor\IEditor.cs" />
@@ -139,7 +148,8 @@
     <Compile Include="PluginGateway\PluginForm\IPluginForm.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="PluginEntryPoint\PluginInfrastructure\UnmanagedExports.cs" />
-    <Compile Include="UI\Forms\Implementation\UITreeNodeCollection.cs" />
+    <Compile Include="UI\Forms\Implementation\FormsTreeNode.cs" />
+    <Compile Include="UI\Forms\Implementation\FormsTreeNodeCollection.cs" />
     <Compile Include="UI\Forms\ObjectExplorerForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -148,9 +158,9 @@
     </Compile>
     <Compile Include="UI\IFormsFactory.cs" />
     <Compile Include="UI\Forms\Factories\FormsFactory.cs" />
-    <Compile Include="UI\Model\IUITreeNodeCollection.cs" />
+    <Compile Include="UI\Model\ITreeNodeCollection.cs" />
     <Compile Include="UI\Model\NodeInfo.cs" />
-    <Compile Include="UI\Model\UITreeNode.cs" />
+    <Compile Include="UI\Model\ITreeNode.cs" />
     <Compile Include="UI\Presenters\ObjectExplorerPresenter.cs" />
     <Compile Include="UI\Views\IObjectExplorerView.cs" />
   </ItemGroup>

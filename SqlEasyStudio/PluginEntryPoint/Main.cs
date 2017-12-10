@@ -7,6 +7,11 @@ using SqlEasyStudio.Properties;
 using SqlEasyStudio.PlaginGateway;
 using System.Windows.Forms;
 using SqlEasyStudio.UI.Forms.Factories;
+using SqlEasyStudio.Infrastructure.IoC.Container;
+using SqlEasyStudio.Infrastructure.IoC.Extensions;
+using System.Reflection;
+using System.Linq;
+using SqlEasyStudio.Infrastructure.IoC;
 
 /// <summary>
 /// 
@@ -24,17 +29,42 @@ namespace Kbg.NppPluginNET
         public const string PluginName = "Sql Easy Studio";
         static Bitmap tbBmp = Resources.ses;
         static FormsFactory formsFactory = new FormsFactory();
-        static PluginFormContainer pluginFormContainer = new PluginFormContainer();                
+        static PluginFormContainer pluginFormContainer = new PluginFormContainer();        
 
         public static void OnNotification(ScNotification notification)
         {            
+        }
+
+        private static void RegisterComponents()
+        {
+            var container = ContainerDelivery.GetContainer();
+
+            var components = (from t in Assembly.GetExecutingAssembly().GetTypes()
+                              where t.ShouldRegisterComponent()
+                              select t)
+                             .ToArray();
+            foreach (var component in components)
+            {
+                var interfaces = component.GetInterfaces();
+                if (interfaces.Count() == 0)
+                {
+                    container.Register(component, component, component.GetComponentLifestyle());
+                }
+                else
+                {
+                    foreach (var interf in interfaces)
+                        container.Register(interf, component, component.GetComponentLifestyle());
+                }
+            }
         }
 
         /// <summary>
         /// 
         /// </summary>
         internal static void CommandMenuInit()
-        {            
+        {
+            RegisterComponents();
+
             PluginBase.SetCommand(0, "Object explorer", ToggleObjectExplorer);
         }
 

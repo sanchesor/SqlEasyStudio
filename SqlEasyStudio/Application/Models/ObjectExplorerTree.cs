@@ -7,7 +7,11 @@ namespace SqlEasyStudio.Application.Models
 {
     public class ObjectExplorerTree
     {
-        public ICollection<ObjectExplorerTreeNode> Nodes { get; set; }
+        public List<ObjectExplorerTreeNode> Nodes { get; set; }
+        public ObjectExplorerTree()
+        {
+            Nodes = new List<ObjectExplorerTreeNode>();
+        }
 
     }
 }
