@@ -23,16 +23,17 @@ namespace SqlEasyStudio.UI.Forms.Implementation
 
         public void Add(ITreeNode item)
         {
-            nodes.Add(new TreeNode() {Text = item.Text, Tag = item});
+            Add(item, nodes);
         }
 
-        public ITreeNode Add(ObjectExplorerTreeNode node)
+        public void Add(ITreeNode item, TreeNodeCollection sourceNodes)
         {
-            return new FormsTreeNode(nodes.Add(node.Name))
+            TreeNode tn = new TreeNode() { Text = item.Text, Tag = item };
+            foreach (ITreeNode n in item.Nodes)
             {
-                NodeInfo = new NodeInfo() { Name = node.Name },
-                Text = node.Name
-            };
+                Add(n, tn.Nodes);
+            }
+            sourceNodes.Add(tn);
         }
 
         public void Clear()

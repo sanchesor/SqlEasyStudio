@@ -18,12 +18,10 @@ namespace SqlEasyStudio.UI.Forms.Implementation
             this.node = node;
             this.node.Tag = this;
             nodes = new FormsTreeNodeCollection(node.Nodes);
-
-            NodeInfo = new NodeInfo();
         }
 
-        public NodeInfo NodeInfo { get; set; }
-        public string Text { get; set; }
-        public ITreeNodeCollection<ITreeNode> Nodes => nodes;
+        public string Text { get { return node.Text; } set { node.Text = value; } }
+
+        public ITreeNodeCollection<ITreeNode> Nodes { get { return nodes; } }
     }
 }

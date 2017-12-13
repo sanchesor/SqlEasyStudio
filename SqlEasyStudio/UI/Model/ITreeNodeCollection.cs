@@ -9,7 +9,6 @@ using System.Threading.Tasks;
 namespace SqlEasyStudio.UI.Model
 {
     public interface ITreeNodeCollection<T> : ICollection<T> where T : ITreeNode
-    {
-        T Add(ObjectExplorerTreeNode node);
+    {        
     }
 }
