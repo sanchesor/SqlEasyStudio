@@ -3,6 +3,7 @@ using System;
 using SqlEasyStudio.Application.Models;
 using SqlEasyStudio.Infrastructure.IoC.Attributes;
 using System.Xml;
+using SqlEasyStudio.Application.Models.Enums;
 
 namespace SqlEasyStudio.Filesystem
 {
@@ -13,18 +14,22 @@ namespace SqlEasyStudio.Filesystem
         {
             var tree = new ObjectExplorerTree();
 
+            var connectionsItem = new ObjectExplorerItem() { Name = "Connections", ItemType = ObjectExplorerItemType.Folder };
+            tree.Items.Add(connectionsItem);
+
             XmlDocument doc = new XmlDocument();
             doc.Load(@"C:\Users\pasawick\AppData\Roaming\Notepad++\plugins\Config\cons.xml");
             foreach (XmlNode n in doc.DocumentElement.GetElementsByTagName("connection"))
             {
-                var node = new ObjectExplorerTreeNode() { Name = n.Attributes["name"].Value };
-                node.Nodes.Add(new ObjectExplorerTreeNode() { Name = "test" });
+                connectionsItem.Items.Add(
+                    new ObjectExplorerItem()
+                    {
+                        Name = n.Attributes["name"].Value,
+                        ItemType = ObjectExplorerItemType.Connection,
+                        Data = n.Attributes["connectionstring"].Value
+                    });
 
-                tree.Nodes.Add(node);
-                //cons.Add(new ConnectionInfo() { Name = n.Attributes["name"].Value, ConnectionString = n.Attributes["connectionstring"].Value });
             }
-            tree.Nodes[0].Nodes[0].Nodes.Add(new ObjectExplorerTreeNode() { Name = "One more" });
-            tree.Nodes[0].Nodes[0].Nodes.Add(new ObjectExplorerTreeNode() { Name = "two more" });
 
             return tree;
         }

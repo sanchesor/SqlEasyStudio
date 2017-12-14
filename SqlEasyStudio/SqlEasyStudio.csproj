@@ -107,9 +107,9 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Application\Interfaces\IObjectExplorerLoader.cs" />
-    <Compile Include="Application\Models\Enums\ObjectExplorerNodeType.cs" />
+    <Compile Include="Application\Models\Enums\ObjectExplorerItemType.cs" />
     <Compile Include="Application\Models\ObjectExplorerTree.cs" />
-    <Compile Include="Application\Models\ObjectExplorerTreeNode.cs" />
+    <Compile Include="Application\Models\ObjectExplorerItem.cs" />
     <Compile Include="Domain\Connection.cs" />
     <Compile Include="Domain\Repositories\IConnectionRepository.cs" />
     <Compile Include="Filesystem\XMLObjectExplorerLoader.cs" />
@@ -162,7 +162,6 @@
     <Compile Include="UI\Model\Extensions\TreeNodeExtensions.cs" />
     <Compile Include="UI\Model\ITreeNodeCollection.cs" />
     <Compile Include="UI\Model\ITreeNodeFactory.cs" />
-    <Compile Include="UI\Model\NodeInfo.cs" />
     <Compile Include="UI\Model\ITreeNode.cs" />
     <Compile Include="UI\Presenters\ObjectExplorerPresenter.cs" />
     <Compile Include="UI\Views\IObjectExplorerView.cs" />

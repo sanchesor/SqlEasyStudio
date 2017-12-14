@@ -5,7 +5,7 @@ using System.Text;
 
 namespace SqlEasyStudio.Application.Models.Enums
 {
-    public enum ObjectExplorerNodeType
+    public enum ObjectExplorerItemType
     {
         Connection,
         Folder

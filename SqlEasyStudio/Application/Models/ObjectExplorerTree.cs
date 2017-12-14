@@ -7,10 +7,10 @@ namespace SqlEasyStudio.Application.Models
 {
     public class ObjectExplorerTree
     {
-        public List<ObjectExplorerTreeNode> Nodes { get; set; }
+        public List<ObjectExplorerItem> Items { get; set; }
         public ObjectExplorerTree()
         {
-            Nodes = new List<ObjectExplorerTreeNode>();
+            Items = new List<ObjectExplorerItem>();
         }
 
     }

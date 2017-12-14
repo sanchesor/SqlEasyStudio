@@ -9,13 +9,14 @@ namespace SqlEasyStudio.UI.Model.Extensions
 {
     public static class TreeNodeExtensions
     {
-        public static ITreeNode ToUITreeNode(this ObjectExplorerTreeNode node, ITreeNodeFactory factory)
+        public static ITreeNode ToUITreeNode(this ObjectExplorerItem item, ITreeNodeFactory factory)
         {
             ITreeNode uinode = factory.Create();
-            uinode.Text = node.Name;
-            foreach (var explorerNode in node.Nodes)
+            uinode.Text = item.Name;
+            uinode.Data = item.Data;
+            foreach (var explorerItem in item.Items)
             {
-                uinode.Nodes.Add(explorerNode.ToUITreeNode(factory));
+                uinode.Nodes.Add(explorerItem.ToUITreeNode(factory));
             }
 
             return uinode;

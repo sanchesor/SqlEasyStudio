@@ -1,10 +1,7 @@
 ﻿using SqlEasyStudio.Application.Interfaces;
-using SqlEasyStudio.Application.Models;
 using SqlEasyStudio.UI.Views;
 using System;
-using System.Collections.Generic;
 using SqlEasyStudio.UI.Model;
-using SqlEasyStudio.UI.Forms.Implementation;
 using SqlEasyStudio.Infrastructure.IoC;
 using SqlEasyStudio.UI.Model.Extensions;
 
@@ -41,9 +38,9 @@ namespace SqlEasyStudio.UI.Presenters
         private void LoadObjectExplorerTree()
         {            
             var objectExplorerTree = ObjectExplorerLoader.Load();
-            foreach (var objectExplorerNode in objectExplorerTree.Nodes)
+            foreach (var items in objectExplorerTree.Items)
             {
-                View.Nodes.Add(objectExplorerNode.ToUITreeNode(TreeNodeFactory));
+                View.Nodes.Add(items.ToUITreeNode(TreeNodeFactory));
             }
         }        
 

@@ -21,6 +21,7 @@ namespace SqlEasyStudio.UI.Forms.Implementation
         }
 
         public string Text { get { return node.Text; } set { node.Text = value; } }
+        public object Data { get; set; }
 
         public ITreeNodeCollection<ITreeNode> Nodes { get { return nodes; } }
     }
