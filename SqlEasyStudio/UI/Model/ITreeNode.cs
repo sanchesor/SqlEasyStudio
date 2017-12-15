@@ -10,5 +10,6 @@ namespace SqlEasyStudio.UI.Model
         string Text { get; set; }
         object Data { get; set; }
         ITreeNodeCollection<ITreeNode> Nodes { get; }
+        bool Expanded { get; set; }
     }
 }

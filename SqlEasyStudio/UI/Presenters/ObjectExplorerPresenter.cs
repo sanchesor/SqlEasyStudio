@@ -4,6 +4,7 @@ using System;
 using SqlEasyStudio.UI.Model;
 using SqlEasyStudio.Infrastructure.IoC;
 using SqlEasyStudio.UI.Model.Extensions;
+using System.Linq;
 
 namespace SqlEasyStudio.UI.Presenters
 {
@@ -42,6 +43,10 @@ namespace SqlEasyStudio.UI.Presenters
             {
                 View.Nodes.Add(items.ToUITreeNode(TreeNodeFactory));
             }
+
+            var connectionsNode = View.Nodes.FirstOrDefault();
+            if (connectionsNode != null)
+                connectionsNode.Expanded = true;
         }        
 
     }

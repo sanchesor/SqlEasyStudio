@@ -1,0 +1,14 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<connections>
+  <connection name="PresellingDev" connectionstring="Server=LUBSS065,1435;Trusted_connection=true;database=PresellingDEV" />
+  <connection name="Atlas_Test_Asseco" connectionstring="Server=LUBSS065,1435;Trusted_connection=true;database=Atlas_Test_Asseco" />
+  <connection name="Zywiec_Preselling_Test_Asseco" connectionstring="Server=LUBSS065,1435;Trusted_connection=true;database=Zywiec_Preselling_Test_Asseco" />
+  <connection name="Storck_Preselling_Test_Asseco" connectionstring="Server=LUBSS065,1435;Trusted_connection=true;database=Storck_Preselling_Test_Asseco" />
+  <connection name="Prod_Log" connectionstring="Server=prod_log.asp.ebi.pl;Trusted_connection=true;database=Prod_Log" />
+  <connection name="KompaniaPiwowarska" connectionstring="Server=lubss061;Trusted_connection=true;database=KompaniaPiwowarska" />
+  <connection name="KompaniaPiwowarska_Test_3" connectionstring="Server=lubss063;Trusted_connection=true;database=KompaniaPiwowarska_Test_3" />
+  <connection name="KompaniaPiwowarska_Test_Asseco" connectionstring="Server=lubss063;Trusted_connection=true;database=KompaniaPiwowarska_Test_Asseco" />
+  <connection name="Hoop" connectionstring="Server=LUBSS095;Trusted_connection=true;database=Hoop" />
+  <connection name="Lorenz_Bahlsen_Vanselling" connectionstring="Server=lubss071;Trusted_connection=true;database=Lorenz_Bahlsen_Vanselling" />
+  <connection name="Neuca" connectionstring="Server=lubss070;Trusted_connection=true;database=Neuca" />
+</connections>

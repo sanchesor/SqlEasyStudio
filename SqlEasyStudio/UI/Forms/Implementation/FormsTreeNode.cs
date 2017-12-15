@@ -24,5 +24,18 @@ namespace SqlEasyStudio.UI.Forms.Implementation
         public object Data { get; set; }
 
         public ITreeNodeCollection<ITreeNode> Nodes { get { return nodes; } }
+
+        public bool Expanded
+        {
+            get { return node.IsExpanded; }
+            set
+            {
+                if (value)
+                    node.Expand();
+                else
+                    node.Collapse();
+            }
+        }
+
     }
 }
