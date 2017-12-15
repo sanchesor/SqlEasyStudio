@@ -1,9 +1,4 @@
-﻿using SqlEasyStudio.Application.Models;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using SqlEasyStudio.Domain;
 
 namespace SqlEasyStudio.UI.Model.Extensions
 {

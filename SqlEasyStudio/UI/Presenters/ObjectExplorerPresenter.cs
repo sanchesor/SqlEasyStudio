@@ -28,7 +28,7 @@ namespace SqlEasyStudio.UI.Presenters
 
         private void View_TreeMouseClick(object sender, EventArgs e)
         {
-            //throw new NotImplementedException();
+
         }
 
         private void View_Load(object sender, EventArgs e)

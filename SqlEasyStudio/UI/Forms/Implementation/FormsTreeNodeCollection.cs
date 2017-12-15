@@ -1,10 +1,8 @@
 ﻿using SqlEasyStudio.UI.Model;
-using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Collections;
 using System.Windows.Forms;
-using SqlEasyStudio.Application.Models;
 
 namespace SqlEasyStudio.UI.Forms.Implementation
 {
@@ -21,21 +19,11 @@ namespace SqlEasyStudio.UI.Forms.Implementation
 
         public bool IsReadOnly => nodes.IsReadOnly;
 
-        public void Add(ITreeNode item)
+        public void Add(ITreeNode node)
         {
-            Add(item, nodes);
+            nodes.Add((node as FormsTreeNode).Node);
         }
-
-        public void Add(ITreeNode item, TreeNodeCollection sourceNodes)
-        {
-            TreeNode tn = new TreeNode() { Text = item.Text, Tag = item };
-            foreach (ITreeNode n in item.Nodes)
-            {
-                Add(n, tn.Nodes);
-            }
-            sourceNodes.Add(tn);
-        }
-
+        
         public void Clear()
         {
             nodes.Clear();

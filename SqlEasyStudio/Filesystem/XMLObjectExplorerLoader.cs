@@ -1,9 +1,8 @@
 ﻿using SqlEasyStudio.Application.Interfaces;
-using System;
-using SqlEasyStudio.Application.Models;
 using SqlEasyStudio.Infrastructure.IoC.Attributes;
 using System.Xml;
-using SqlEasyStudio.Application.Models.Enums;
+using SqlEasyStudio.Domain;
+using SqlEasyStudio.Domain.Enums;
 
 namespace SqlEasyStudio.Filesystem
 {
@@ -20,15 +19,14 @@ namespace SqlEasyStudio.Filesystem
             XmlDocument doc = new XmlDocument();
             doc.Load(@"C:\Users\pasawick\AppData\Roaming\Notepad++\plugins\Config\cons.xml");
             foreach (XmlNode n in doc.DocumentElement.GetElementsByTagName("connection"))
-            {
+            {               
                 connectionsItem.Items.Add(
                     new ObjectExplorerItem()
                     {
                         Name = n.Attributes["name"].Value,
                         ItemType = ObjectExplorerItemType.Connection,
                         Data = n.Attributes["connectionstring"].Value
-                    });
-
+                    });                                        
             }
 
             return tree;

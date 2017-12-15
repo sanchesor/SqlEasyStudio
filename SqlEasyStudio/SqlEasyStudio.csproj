@@ -107,11 +107,9 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Application\Interfaces\IObjectExplorerLoader.cs" />
-    <Compile Include="Application\Models\Enums\ObjectExplorerItemType.cs" />
-    <Compile Include="Application\Models\ObjectExplorerTree.cs" />
-    <Compile Include="Application\Models\ObjectExplorerItem.cs" />
-    <Compile Include="Domain\Connection.cs" />
-    <Compile Include="Domain\Repositories\IConnectionRepository.cs" />
+    <Compile Include="Domain\ObjectExplorerItemType.cs" />
+    <Compile Include="Domain\ObjectExplorerTree.cs" />
+    <Compile Include="Domain\ObjectExplorerItem.cs" />
     <Compile Include="Filesystem\XMLObjectExplorerLoader.cs" />
     <Compile Include="Infrastructure\IoC\Attributes\ComponentAttribute.cs" />
     <Compile Include="Infrastructure\IoC\ContainerDelivery.cs" />

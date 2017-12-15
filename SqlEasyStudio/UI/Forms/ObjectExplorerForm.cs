@@ -42,7 +42,7 @@ namespace SqlEasyStudio.UI.Forms
 
         private void _tree_MouseClick(object sender, MouseEventArgs e)
         {
-            TreeMouseClick?.Invoke(sender, e);
+            TreeMouseClick?.Invoke(sender, e);            
         }
 
     }

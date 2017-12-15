@@ -10,30 +10,30 @@ namespace SqlEasyStudio.UI.Forms.Implementation
 {
     public class FormsTreeNode : ITreeNode
     {
-        TreeNode node;
+        public TreeNode Node { get; }
         FormsTreeNodeCollection nodes;
 
         public FormsTreeNode(TreeNode node)
         {
-            this.node = node;
-            this.node.Tag = this;
+            Node = node;
+            Node.Tag = this;
             nodes = new FormsTreeNodeCollection(node.Nodes);
         }
 
-        public string Text { get { return node.Text; } set { node.Text = value; } }
+        public string Text { get { return Node.Text; } set { Node.Text = value; } }
         public object Data { get; set; }
 
         public ITreeNodeCollection<ITreeNode> Nodes { get { return nodes; } }
 
         public bool Expanded
         {
-            get { return node.IsExpanded; }
+            get { return Node.IsExpanded; }
             set
             {
                 if (value)
-                    node.Expand();
+                    Node.Expand();
                 else
-                    node.Collapse();
+                    Node.Collapse();
             }
         }
 

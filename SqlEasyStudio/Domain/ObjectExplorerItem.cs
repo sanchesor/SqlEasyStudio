@@ -1,10 +1,7 @@
-﻿using SqlEasyStudio.Application.Models.Enums;
-using System;
+﻿using SqlEasyStudio.Domain.Enums;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 
-namespace SqlEasyStudio.Application.Models
+namespace SqlEasyStudio.Domain
 {
     public class ObjectExplorerItem
     {
