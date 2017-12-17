@@ -10,3 +10,4 @@ dotnet_library_license.txt
 _._
 System.Reflection.Emit.Lightweight.dll
 System.Reflection.Emit.Lightweight.xml
+packages

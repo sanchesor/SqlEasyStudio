@@ -11,7 +11,7 @@ namespace SqlEasyStudio.UI.Presenters
     public class ObjectExplorerPresenter
     {
         private IObjectExplorerView View;
-        private IObjectExplorerLoader ObjectExplorerLoader;
+        private IObjectExplorerLoaderFactory ObjectExplorerLoaderFactory;
         private ITreeNodeFactory TreeNodeFactory;
 
 
@@ -23,7 +23,7 @@ namespace SqlEasyStudio.UI.Presenters
             view.TreeMouseClick += View_TreeMouseClick;
 
             TreeNodeFactory = ContainerDelivery.GetContainer().Resolve<ITreeNodeFactory>();
-            ObjectExplorerLoader = ContainerDelivery.GetContainer().Resolve<IObjectExplorerLoader>();
+            ObjectExplorerLoaderFactory = ContainerDelivery.GetContainer().Resolve<IObjectExplorerLoaderFactory>();
         }
 
         private void View_TreeMouseClick(object sender, EventArgs e)
@@ -37,8 +37,9 @@ namespace SqlEasyStudio.UI.Presenters
         }
 
         private void LoadObjectExplorerTree()
-        {            
-            var objectExplorerTree = ObjectExplorerLoader.Load();
+        {
+            var objectExplorerLoader = ObjectExplorerLoaderFactory.Create();
+            var objectExplorerTree = objectExplorerLoader.Load();
             foreach (var items in objectExplorerTree.Items)
             {
                 View.Nodes.Add(items.ToUITreeNode(TreeNodeFactory));

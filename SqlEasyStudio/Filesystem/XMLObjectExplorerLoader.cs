@@ -3,12 +3,21 @@ using SqlEasyStudio.Infrastructure.IoC.Attributes;
 using System.Xml;
 using SqlEasyStudio.Domain;
 using SqlEasyStudio.Domain.Enums;
+using System;
+using SqlEasyStudio.Filesystem.Exceptions;
 
 namespace SqlEasyStudio.Filesystem
 {
     [Component]
-    class XMLObjectExplorerLoader : IObjectExplorerLoader
+    public class XmlObjectExplorerLoader : IObjectExplorerLoader
     {
+        public string SourceFile { get; private set; }
+
+        public XmlObjectExplorerLoader(string xmlFile)
+        {
+            SourceFile = xmlFile;
+        }
+
         public ObjectExplorerTree Load()
         {
             var tree = new ObjectExplorerTree();
@@ -17,9 +26,22 @@ namespace SqlEasyStudio.Filesystem
             tree.Items.Add(connectionsItem);
 
             XmlDocument doc = new XmlDocument();
-            doc.Load(@"C:\Users\pasawick\AppData\Roaming\Notepad++\plugins\Config\cons.xml");
+            try
+            {
+                doc.Load(SourceFile);
+            }
+            catch(Exception e)
+            {
+                throw new InvalidConfigurationException(string.Format("Invalid configuration file: {0}.", SourceFile), e);
+            }
+
             foreach (XmlNode n in doc.DocumentElement.GetElementsByTagName("connection"))
-            {               
+            {
+                if (n.Attributes["name"].Value == null || n.Attributes["connectionstring"].Value == null)
+                {
+                    throw new InvalidConfigurationException(string.Format("Invalid configuration file: {0}.", SourceFile), null);
+                }
+
                 connectionsItem.Items.Add(
                     new ObjectExplorerItem()
                     {

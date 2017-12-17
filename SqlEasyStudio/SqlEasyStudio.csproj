@@ -94,9 +94,6 @@
     </Reference>
     <Reference Include="PresentationCore" />
     <Reference Include="PresentationFramework" />
-    <Reference Include="StructureMap, Version=4.5.3.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\StructureMap.4.5.3\lib\net45\StructureMap.dll</HintPath>
-    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Data" />
     <Reference Include="System.Drawing" />
@@ -107,10 +104,13 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Application\Interfaces\IObjectExplorerLoader.cs" />
+    <Compile Include="Application\Interfaces\IObjectExplorerLoaderFactory.cs" />
     <Compile Include="Domain\ObjectExplorerItemType.cs" />
     <Compile Include="Domain\ObjectExplorerTree.cs" />
     <Compile Include="Domain\ObjectExplorerItem.cs" />
-    <Compile Include="Filesystem\XMLObjectExplorerLoader.cs" />
+    <Compile Include="Filesystem\Exceptions\InvalidConfigurationException.cs" />
+    <Compile Include="Filesystem\XmlObjectExplorerLoader.cs" />
+    <Compile Include="Filesystem\XmlObjectExplorerLoaderFactory.cs" />
     <Compile Include="Infrastructure\IoC\Attributes\ComponentAttribute.cs" />
     <Compile Include="Infrastructure\IoC\ContainerDelivery.cs" />
     <Compile Include="Infrastructure\IoC\Container\IContainer.cs" />
@@ -183,7 +183,9 @@
     <None Include="packages.config" />
     <None Include="PluginEntryPoint\Resources\ses.png" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Service Include="{82A7F48D-3B50-4B1E-B82E-3ADA8210C358}" />
+  </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <Import Project="$(MSBuildProjectDirectory)\PluginEntryPoint\PluginInfrastructure\DllExport\NppPlugin.DllExport.targets" />
   <Import Condition="Exists('$(DevEnvDir)\..\..\VC\Auxiliary\Build')" Project="$(DevEnvDir)\..\..\VC\Auxiliary\Build\Microsoft.VCToolsVersion.default.props" />
