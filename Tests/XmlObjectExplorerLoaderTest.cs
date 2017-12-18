@@ -1,18 +1,18 @@
 ﻿using System;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
 using SqlEasyStudio.Filesystem;
 using SqlEasyStudio.Filesystem.Exceptions;
+using NUnit.Framework;
 
 namespace Tests
 {
-    [TestClass]
+    [TestFixture]
     public class XmlObjectExplorerLoaderTest
     {
-        [TestMethod]
+        [Test]
         public void Load()
         {
-            Assert.ThrowsException<InvalidConfigurationException>(() => { (new XmlObjectExplorerLoader("")).Load(); });
-            Assert.ThrowsException<InvalidConfigurationException>(() => { (new XmlObjectExplorerLoader("sd")).Load(); });            
+            Assert.Throws<InvalidConfigurationException>(() => { (new XmlObjectExplorerLoader("")).Load(); });
+            Assert.Throws<InvalidConfigurationException>(() => { (new XmlObjectExplorerLoader("sd")).Load(); });
         }
     }
 }
