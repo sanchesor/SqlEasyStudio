@@ -1,4 +1,4 @@
-﻿using SqlEasyStudio.Application.Interfaces;
+﻿using SqlEasyStudio.Domain.Repositories;
 using SqlEasyStudio.Infrastructure.IoC.Attributes;
 using System.Xml;
 using SqlEasyStudio.Domain;
@@ -9,11 +9,11 @@ using SqlEasyStudio.Persistance.Exceptions;
 namespace SqlEasyStudio.Persistance
 {
     [Component]
-    public class XmlObjectExplorerLoader : IObjectExplorerLoader
+    public class XmlObjectExplorerRepository : IObjectExplorerRepository
     {
         public string SourceFile { get; private set; }
 
-        public XmlObjectExplorerLoader(string xmlFile)
+        public XmlObjectExplorerRepository(string xmlFile)
         {
             SourceFile = xmlFile;
         }

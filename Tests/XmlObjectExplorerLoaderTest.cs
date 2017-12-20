@@ -1,6 +1,6 @@
 ﻿using System;
-using SqlEasyStudio.Filesystem;
-using SqlEasyStudio.Filesystem.Exceptions;
+using SqlEasyStudio.Persistance;
+using SqlEasyStudio.Persistance.Exceptions;
 using NUnit.Framework;
 
 namespace Tests
@@ -11,8 +11,8 @@ namespace Tests
         [Test]
         public void Load()
         {
-            Assert.Throws<InvalidConfigurationException>(() => { (new XmlObjectExplorerLoader("")).Load(); });
-            Assert.Throws<InvalidConfigurationException>(() => { (new XmlObjectExplorerLoader("sd")).Load(); });
+            Assert.Throws<InvalidConfigurationException>(() => { (new XmlObjectExplorerRepository("")).Load(); });
+            Assert.Throws<InvalidConfigurationException>(() => { (new XmlObjectExplorerRepository("sd")).Load(); });
         }
     }
 }

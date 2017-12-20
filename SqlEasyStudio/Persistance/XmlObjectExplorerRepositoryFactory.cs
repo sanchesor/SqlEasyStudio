@@ -1,4 +1,4 @@
-﻿using SqlEasyStudio.Application.Interfaces;
+﻿using SqlEasyStudio.Domain.Repositories;
 using SqlEasyStudio.Infrastructure.IoC.Attributes;
 using System;
 using System.Collections.Generic;
@@ -9,12 +9,12 @@ using System.Threading.Tasks;
 namespace SqlEasyStudio.Persistance
 {
     [Component]
-    public class XmlObjectExplorerLoaderFactory : IObjectExplorerLoaderFactory
+    public class XmlObjectExplorerRepositoryFactory : IObjectExplorerRepositoryFactory
     {
         private string sourceFile = @"C:\Users\pasawick\AppData\Roaming\Notepad++\plugins\Config\cons.xml";
-        public IObjectExplorerLoader Create()
+        public IObjectExplorerRepository Create()
         {
-            return new XmlObjectExplorerLoader(sourceFile);
+            return new XmlObjectExplorerRepository(sourceFile);
         }
     }
 }

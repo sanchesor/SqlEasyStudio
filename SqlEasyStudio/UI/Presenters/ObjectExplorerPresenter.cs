@@ -1,4 +1,4 @@
-﻿using SqlEasyStudio.Application.Interfaces;
+﻿using SqlEasyStudio.Domain.Repositories;
 using SqlEasyStudio.UI.Views;
 using System;
 using SqlEasyStudio.UI.Model;
@@ -11,7 +11,7 @@ namespace SqlEasyStudio.UI.Presenters
     public class ObjectExplorerPresenter
     {
         private IObjectExplorerView View;
-        private IObjectExplorerLoaderFactory ObjectExplorerLoaderFactory;
+        private IObjectExplorerRepositoryFactory ObjectExplorerRepositoryFactory;
         private ITreeNodeFactory TreeNodeFactory;
 
 
@@ -23,7 +23,7 @@ namespace SqlEasyStudio.UI.Presenters
             view.TreeMouseClick += View_TreeMouseClick;
 
             TreeNodeFactory = ContainerDelivery.GetContainer().Resolve<ITreeNodeFactory>();
-            ObjectExplorerLoaderFactory = ContainerDelivery.GetContainer().Resolve<IObjectExplorerLoaderFactory>();
+            ObjectExplorerRepositoryFactory = ContainerDelivery.GetContainer().Resolve<IObjectExplorerRepositoryFactory>();
         }
 
         private void View_TreeMouseClick(object sender, EventArgs e)
@@ -38,8 +38,8 @@ namespace SqlEasyStudio.UI.Presenters
 
         private void LoadObjectExplorerTree()
         {
-            var objectExplorerLoader = ObjectExplorerLoaderFactory.Create();
-            var objectExplorerTree = objectExplorerLoader.Load();
+            var objectExplorerRepository = ObjectExplorerRepositoryFactory.Create();
+            var objectExplorerTree = objectExplorerRepository.Load();
             foreach (var items in objectExplorerTree.Items)
             {
                 View.Nodes.Add(items.ToUITreeNode(TreeNodeFactory));

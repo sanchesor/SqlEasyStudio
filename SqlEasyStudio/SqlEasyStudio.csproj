@@ -103,14 +103,14 @@
     <Reference Include="WindowsBase" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Application\Interfaces\IObjectExplorerLoader.cs" />
-    <Compile Include="Application\Interfaces\IObjectExplorerLoaderFactory.cs" />
+    <Compile Include="Domain\Repositories\IObjectExplorerRepository.cs" />
+    <Compile Include="Domain\Repositories\IObjectExplorerRepositoryFactory.cs" />
     <Compile Include="Domain\ObjectExplorerItemType.cs" />
     <Compile Include="Domain\ObjectExplorerTree.cs" />
     <Compile Include="Domain\ObjectExplorerItem.cs" />
     <Compile Include="Persistance\Exceptions\InvalidConfigurationException.cs" />
-    <Compile Include="Persistance\XmlObjectExplorerLoader.cs" />
-    <Compile Include="Persistance\XmlObjectExplorerLoaderFactory.cs" />
+    <Compile Include="Persistance\XmlObjectExplorerRepository.cs" />
+    <Compile Include="Persistance\XmlObjectExplorerRepositoryFactory.cs" />
     <Compile Include="Infrastructure\IoC\Attributes\ComponentAttribute.cs" />
     <Compile Include="Infrastructure\IoC\ContainerDelivery.cs" />
     <Compile Include="Infrastructure\IoC\Container\IContainer.cs" />
@@ -185,6 +185,9 @@
   </ItemGroup>
   <ItemGroup>
     <Service Include="{82A7F48D-3B50-4B1E-B82E-3ADA8210C358}" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Application\" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <Import Project="$(MSBuildProjectDirectory)\PluginEntryPoint\PluginInfrastructure\DllExport\NppPlugin.DllExport.targets" />
