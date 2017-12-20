@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace SqlEasyStudio.Filesystem.Exceptions
+namespace SqlEasyStudio.Persistance.Exceptions
 {
     public class InvalidConfigurationException : Exception
     {

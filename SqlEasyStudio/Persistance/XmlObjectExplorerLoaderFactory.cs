@@ -6,7 +6,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace SqlEasyStudio.Filesystem
+namespace SqlEasyStudio.Persistance
 {
     [Component]
     public class XmlObjectExplorerLoaderFactory : IObjectExplorerLoaderFactory

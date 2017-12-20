@@ -4,9 +4,9 @@ using System.Xml;
 using SqlEasyStudio.Domain;
 using SqlEasyStudio.Domain.Enums;
 using System;
-using SqlEasyStudio.Filesystem.Exceptions;
+using SqlEasyStudio.Persistance.Exceptions;
 
-namespace SqlEasyStudio.Filesystem
+namespace SqlEasyStudio.Persistance
 {
     [Component]
     public class XmlObjectExplorerLoader : IObjectExplorerLoader

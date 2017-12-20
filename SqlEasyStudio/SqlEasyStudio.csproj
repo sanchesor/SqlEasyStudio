@@ -108,9 +108,9 @@
     <Compile Include="Domain\ObjectExplorerItemType.cs" />
     <Compile Include="Domain\ObjectExplorerTree.cs" />
     <Compile Include="Domain\ObjectExplorerItem.cs" />
-    <Compile Include="Filesystem\Exceptions\InvalidConfigurationException.cs" />
-    <Compile Include="Filesystem\XmlObjectExplorerLoader.cs" />
-    <Compile Include="Filesystem\XmlObjectExplorerLoaderFactory.cs" />
+    <Compile Include="Persistance\Exceptions\InvalidConfigurationException.cs" />
+    <Compile Include="Persistance\XmlObjectExplorerLoader.cs" />
+    <Compile Include="Persistance\XmlObjectExplorerLoaderFactory.cs" />
     <Compile Include="Infrastructure\IoC\Attributes\ComponentAttribute.cs" />
     <Compile Include="Infrastructure\IoC\ContainerDelivery.cs" />
     <Compile Include="Infrastructure\IoC\Container\IContainer.cs" />
