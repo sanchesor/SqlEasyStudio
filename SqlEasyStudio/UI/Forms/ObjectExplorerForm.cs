@@ -14,6 +14,7 @@ namespace SqlEasyStudio.UI.Forms
         private ObjectExplorerPresenter presenter;
 
         public event EventHandler TreeMouseClick;
+        public event EventHandler<NodeMouseClickArgs> NodeMouseClick;
         public event EventHandler Loaded;        
 
         public ObjectExplorerForm()
@@ -22,9 +23,15 @@ namespace SqlEasyStudio.UI.Forms
 
             VisibleChanged += ObjectExplorerForm_VisibleChanged;
             _tree.MouseClick += _tree_MouseClick;
+            _tree.NodeMouseClick += _tree_NodeMouseClick;
 
-            presenter = new ObjectExplorerPresenter(this);
+            presenter = new ObjectExplorerPresenter(this);            
             
+        }
+
+        private void _tree_NodeMouseClick(object sender, TreeNodeMouseClickEventArgs e)
+        {
+            NodeMouseClick?.Invoke(sender, new NodeMouseClickArgs() { Node = e.Node.Tag as ITreeNode});           
         }
 
         bool _isLoaded = false;

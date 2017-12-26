@@ -12,12 +12,13 @@ namespace SqlEasyStudio.UI.Forms.Implementation
     {
         public TreeNode Node { get; }
         FormsTreeNodeCollection nodes;
+        FormsContextMenu contextMenu;
 
         public FormsTreeNode(TreeNode node)
         {
             Node = node;
             Node.Tag = this;
-            nodes = new FormsTreeNodeCollection(node.Nodes);
+            nodes = new FormsTreeNodeCollection(node.Nodes);            
         }
 
         public string Text { get { return Node.Text; } set { Node.Text = value; } }
@@ -37,5 +38,17 @@ namespace SqlEasyStudio.UI.Forms.Implementation
             }
         }
 
+        public IContextMenu ContextMenu
+        {
+            get
+            {
+                return contextMenu;
+            }
+            set
+            {
+                contextMenu = (FormsContextMenu)value;
+                Node.ContextMenu = contextMenu.SourceContextMenu;
+            }
+        }
     }
 }

@@ -13,7 +13,7 @@ namespace SqlEasyStudio.UI.Presenters
         private IObjectExplorerView View;
         private IObjectExplorerRepositoryFactory ObjectExplorerRepositoryFactory;
         private ITreeNodeFactory TreeNodeFactory;
-
+        private IMenuFactory MenuFactory;
 
         public ObjectExplorerPresenter(IObjectExplorerView view)
         {
@@ -21,14 +21,26 @@ namespace SqlEasyStudio.UI.Presenters
 
             view.Loaded += View_Load;
             view.TreeMouseClick += View_TreeMouseClick;
+            view.NodeMouseClick += View_NodeMouseClick;
 
             TreeNodeFactory = ContainerDelivery.GetContainer().Resolve<ITreeNodeFactory>();
             ObjectExplorerRepositoryFactory = ContainerDelivery.GetContainer().Resolve<IObjectExplorerRepositoryFactory>();
+            MenuFactory = ContainerDelivery.GetContainer().Resolve<IMenuFactory>();
+        }
+
+        private void View_NodeMouseClick(object sender, NodeMouseClickArgs e)
+        {
+            ITreeNode node = e.Node;
+            IContextMenu contextMenu = MenuFactory.CreateContextMenu();
+            IMenuItem menu = MenuFactory.CreateMenuItem();
+            menu.Name = "menu do " + node.Text;
+            contextMenu.MenuItems.Add(menu);
+            node.ContextMenu = contextMenu;
+            
         }
 
         private void View_TreeMouseClick(object sender, EventArgs e)
         {
-
         }
 
         private void View_Load(object sender, EventArgs e)
@@ -40,9 +52,10 @@ namespace SqlEasyStudio.UI.Presenters
         {
             var objectExplorerRepository = ObjectExplorerRepositoryFactory.Create();
             var objectExplorerTree = objectExplorerRepository.Load();
-            foreach (var items in objectExplorerTree.Items)
+            foreach (var item in objectExplorerTree.Items)
             {
-                View.Nodes.Add(items.ToUITreeNode(TreeNodeFactory));
+                ITreeNode n = item.ToUITreeNode(TreeNodeFactory);
+                View.Nodes.Add(n);
             }
 
             var connectionsNode = View.Nodes.FirstOrDefault();
