@@ -6,10 +6,11 @@ namespace SqlEasyStudio.UI.Views
 {
     public interface IObjectExplorerView
     {
-        event EventHandler Loaded;
-        event EventHandler TreeMouseClick;
-        event EventHandler<NodeMouseClickArgs> NodeMouseClick;        
-
+        event EventHandler Loaded;        
+        event EventHandler<NodeMouseClickArgs> NodeMouseClick;
+        event EventHandler AfterSelect;
+        
+        ITreeNode SelectedNode { get; set; }
         ITreeNodeCollection<ITreeNode> Nodes { get; }        
 
     }

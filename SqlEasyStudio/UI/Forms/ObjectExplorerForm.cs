@@ -12,25 +12,33 @@ namespace SqlEasyStudio.UI.Forms
     public partial class ObjectExplorerForm : Form, IObjectExplorerView
     {
         private ObjectExplorerPresenter presenter;
-
-        public event EventHandler TreeMouseClick;
+        
         public event EventHandler<NodeMouseClickArgs> NodeMouseClick;
-        public event EventHandler Loaded;        
+        public event EventHandler Loaded;
+        public event EventHandler AfterSelect;
+
+
+        public ITreeNode SelectedNode { get { return _tree.SelectedNode.Tag as ITreeNode; } set { _tree.SelectedNode = ((FormsTreeNode)value).Node; } }
 
         public ObjectExplorerForm()
         {
             InitializeComponent();            
 
-            VisibleChanged += ObjectExplorerForm_VisibleChanged;
-            _tree.MouseClick += _tree_MouseClick;
+            VisibleChanged += ObjectExplorerForm_VisibleChanged;            
             _tree.NodeMouseClick += _tree_NodeMouseClick;
+            _tree.AfterSelect += _tree_AfterSelect;            
 
             presenter = new ObjectExplorerPresenter(this);            
             
         }
 
-        private void _tree_NodeMouseClick(object sender, TreeNodeMouseClickEventArgs e)
+        private void _tree_AfterSelect(object sender, TreeViewEventArgs e)
         {
+            AfterSelect?.Invoke(sender, e);
+        }
+
+        private void _tree_NodeMouseClick(object sender, TreeNodeMouseClickEventArgs e)
+        {            
             NodeMouseClick?.Invoke(sender, new NodeMouseClickArgs() { Node = e.Node.Tag as ITreeNode});           
         }
 
@@ -46,11 +54,7 @@ namespace SqlEasyStudio.UI.Forms
                 _isLoaded = true;
             }
         }
-
-        private void _tree_MouseClick(object sender, MouseEventArgs e)
-        {
-            TreeMouseClick?.Invoke(sender, e);            
-        }
+        
 
     }
 }

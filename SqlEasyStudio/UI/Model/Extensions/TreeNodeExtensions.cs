@@ -8,7 +8,7 @@ namespace SqlEasyStudio.UI.Model.Extensions
         {
             ITreeNode uinode = factory.Create();
             uinode.Text = item.Name;
-            uinode.Data = item.Data;
+            uinode.Data = item;
             foreach (var explorerItem in item.Items)
             {
                 uinode.Nodes.Add(explorerItem.ToUITreeNode(factory));

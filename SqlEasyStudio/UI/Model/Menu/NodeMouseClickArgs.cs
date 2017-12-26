@@ -9,5 +9,6 @@ namespace SqlEasyStudio.UI.Model
     public class NodeMouseClickArgs
     {
         public ITreeNode Node;
+
     }
 }
