@@ -6,10 +6,8 @@ using System.Threading.Tasks;
 
 namespace SqlEasyStudio.Infrastructure.Messaging
 {
-    public interface ICommandHandler { }
-
-    public interface ICommandHandler<T> : ICommandHandler
+    public interface ICommandHandlerFactory
     {
-        void Handle(T command);
+        ICommandHandler<T> Create<T>();        
     }
 }

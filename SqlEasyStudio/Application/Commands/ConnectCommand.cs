@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace SqlEasyStudio.Application.Commands
 {
-    public class ConnectCommand : ICommand
+    public class ConnectCommand
     {
         public string ConnectionString { get; private set; }
 

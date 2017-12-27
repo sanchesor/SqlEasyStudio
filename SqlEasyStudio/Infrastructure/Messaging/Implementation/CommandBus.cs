@@ -1,16 +1,22 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using SqlEasyStudio.Infrastructure.IoC;
+using SqlEasyStudio.Infrastructure.IoC.Attributes;
+using System;
 
 namespace SqlEasyStudio.Infrastructure.Messaging.Implementation
 {
+    [Component]
     public class CommandBus : ICommandBus
     {
-        public void Send(ICommand command)
+        ICommandHandlerFactory _handlerFactory;
+        public CommandBus()
         {
-            throw new NotImplementedException();
+            _handlerFactory = ContainerDelivery.GetContainer().Resolve<ICommandHandlerFactory>();
+        }
+
+        public void Send<T>(T command)
+        {
+            var commandHandler = _handlerFactory.Create<T>();
+            commandHandler.Handle(command);
         }
     }
 }

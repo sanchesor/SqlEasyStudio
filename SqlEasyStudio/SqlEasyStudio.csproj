@@ -101,16 +101,23 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Application\Commands\ConnectCommand.cs" />
-    <Compile Include="Application\Handlers\ConnectHandler.cs" />
+    <Compile Include="Application\Commands\ConnectionAddCommand.cs" />
+    <Compile Include="Application\Commands\ConnectionEditCommand.cs" />
+    <Compile Include="Application\Handlers\ConnectCommandHandler.cs" />
+    <Compile Include="Application\Handlers\ConnectionAddCommandHandler.cs" />
+    <Compile Include="Application\Handlers\ConnectionEditCommandHandler.cs" />
     <Compile Include="Domain\Repositories\IObjectExplorerRepository.cs" />
     <Compile Include="Domain\Repositories\IObjectExplorerRepositoryFactory.cs" />
     <Compile Include="Domain\ObjectExplorerItemType.cs" />
     <Compile Include="Domain\ObjectExplorerTree.cs" />
     <Compile Include="Domain\ObjectExplorerItem.cs" />
+    <Compile Include="Infrastructure\Extensions\AssemblyExtensions.cs" />
     <Compile Include="Infrastructure\Messaging\ICommand.cs" />
     <Compile Include="Infrastructure\Messaging\ICommandBus.cs" />
     <Compile Include="Infrastructure\Messaging\ICommandHandler.cs" />
+    <Compile Include="Infrastructure\Messaging\ICommandHandlerFactory.cs" />
     <Compile Include="Infrastructure\Messaging\Implementation\CommandBus.cs" />
+    <Compile Include="Infrastructure\Messaging\Implementation\CommandHandlerFactory.cs" />
     <Compile Include="Persistance\Exceptions\InvalidConfigurationException.cs" />
     <Compile Include="Persistance\XmlObjectExplorerRepository.cs" />
     <Compile Include="Persistance\XmlObjectExplorerRepositoryFactory.cs" />
@@ -124,6 +131,7 @@
     <Compile Include="Infrastructure\IoC\Extensions\TypeExtensions.cs" />
     <Compile Include="Infrastructure\IoC\IoCHelper.cs" />
     <Compile Include="Infrastructure\Validation\Validate.cs" />
+    <Compile Include="PluginEntryPoint\BootStrapper.cs" />
     <Compile Include="PluginGateway\Editor\IDocument.cs" />
     <Compile Include="PluginGateway\Editor\IEditor.cs" />
     <Compile Include="PluginGateway\Editor\Implementation\NppDocument.cs" />

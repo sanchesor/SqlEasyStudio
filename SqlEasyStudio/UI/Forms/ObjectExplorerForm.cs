@@ -15,7 +15,7 @@ namespace SqlEasyStudio.UI.Forms
         
         public event EventHandler<NodeMouseClickArgs> NodeMouseClick;
         public event EventHandler Loaded;
-        public event EventHandler AfterSelect;
+        public event EventHandler NodeAfterSelect;
 
 
         public ITreeNode SelectedNode { get { return _tree.SelectedNode.Tag as ITreeNode; } set { _tree.SelectedNode = ((FormsTreeNode)value).Node; } }
@@ -34,7 +34,7 @@ namespace SqlEasyStudio.UI.Forms
 
         private void _tree_AfterSelect(object sender, TreeViewEventArgs e)
         {
-            AfterSelect?.Invoke(sender, e);
+            NodeAfterSelect?.Invoke(sender, e);
         }
 
         private void _tree_NodeMouseClick(object sender, TreeNodeMouseClickEventArgs e)

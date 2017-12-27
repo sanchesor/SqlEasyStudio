@@ -22,7 +22,7 @@ namespace SqlEasyStudio.Persistance
         {
             var tree = new ObjectExplorerTree();
 
-            var connectionsItem = new ObjectExplorerItem() { Name = "Connections", ItemType = ObjectExplorerItemType.Folder };
+            var connectionsItem = new ObjectExplorerItem() { Name = "Connections", ItemType = ObjectExplorerItemType.Connections };
             tree.Items.Add(connectionsItem);
 
             XmlDocument doc = new XmlDocument();

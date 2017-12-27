@@ -8,11 +8,11 @@ using System.Threading.Tasks;
 
 namespace SqlEasyStudio.Application.Handlers
 {
-    public class ConnectHandler : ICommandHandler<ConnectCommand>
+    public class ConnectionAddCommandHandler : ICommandHandler<ConnectionAddCommand>
     {
-        public void Handle(ConnectCommand command)
+        public void Handle(ConnectionAddCommand command)
         {
-            throw new NotImplementedException();
+            
         }
     }
 }

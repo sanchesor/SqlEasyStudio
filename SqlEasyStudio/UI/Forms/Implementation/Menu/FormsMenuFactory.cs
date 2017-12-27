@@ -2,6 +2,7 @@
 using SqlEasyStudio.UI.Model;
 using System.Windows.Forms;
 using SqlEasyStudio.Infrastructure.Messaging;
+using System;
 
 namespace SqlEasyStudio.UI.Forms.Implementation
 {
@@ -12,9 +13,9 @@ namespace SqlEasyStudio.UI.Forms.Implementation
         {
             return new FormsMenuItem(new MenuItem());
         }
-        public IMenuItem CreateMenuItem(string text, ICommand command)
+        public IMenuItem CreateMenuItem(string text, Action commandHandler)
         {
-            return new FormsMenuItem(new MenuItem()) { Text = text, Command = command };
+            return new FormsMenuItem(new MenuItem()) { Text = text, CommandHandler = commandHandler };
         }
 
         public IContextMenu CreateContextMenu()

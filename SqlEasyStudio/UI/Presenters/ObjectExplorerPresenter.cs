@@ -8,6 +8,8 @@ using SqlEasyStudio.UI.Model.Extensions;
 using System.Linq;
 using System.Collections.Generic;
 using SqlEasyStudio.Application.Commands;
+using SqlEasyStudio.Infrastructure.Messaging;
+using SqlEasyStudio.Domain.Enums;
 
 namespace SqlEasyStudio.UI.Presenters
 {
@@ -17,6 +19,7 @@ namespace SqlEasyStudio.UI.Presenters
         private IObjectExplorerRepositoryFactory ObjectExplorerRepositoryFactory;
         private ITreeNodeFactory TreeNodeFactory;
         private IMenuFactory MenuFactory;
+        private ICommandBus CommandBus;
 
         public ObjectExplorerPresenter(IObjectExplorerView view)
         {
@@ -24,14 +27,15 @@ namespace SqlEasyStudio.UI.Presenters
 
             view.Loaded += View_Load;            
             view.NodeMouseClick += View_NodeMouseClick;
-            view.AfterSelect += View_AfterSelect;
+            view.NodeAfterSelect += View_NodeAfterSelect;
 
             TreeNodeFactory = ContainerDelivery.GetContainer().Resolve<ITreeNodeFactory>();
             ObjectExplorerRepositoryFactory = ContainerDelivery.GetContainer().Resolve<IObjectExplorerRepositoryFactory>();
             MenuFactory = ContainerDelivery.GetContainer().Resolve<IMenuFactory>();
+            CommandBus = ContainerDelivery.GetContainer().Resolve<ICommandBus>();
         }
 
-        private void View_AfterSelect(object sender, EventArgs e)
+        private void View_NodeAfterSelect(object sender, EventArgs e)
         {
             SetNodeContextMenu(View.SelectedNode);
         }
@@ -59,17 +63,29 @@ namespace SqlEasyStudio.UI.Presenters
             }
         }
 
-        private IMenuItem[] GetNodeMenuItems(ITreeNode node)
+        private IMenuItem[] GetNodeMenuItems(ITreeNode treeNode)
         {
-            ObjectExplorerItem item = node.Data as ObjectExplorerItem;
-            switch (item.ItemType)
+            ObjectExplorerItem objectExplorerItem = treeNode.Data as ObjectExplorerItem;
+            switch (objectExplorerItem.ItemType)
             {
-                case Domain.Enums.ObjectExplorerItemType.Connection:
-                    return new IMenuItem[]
+                case ObjectExplorerItemType.Connections:
                     {
-                        MenuFactory.CreateMenuItem("Connect", new ConnectCommand((node.Data as ObjectExplorerItem).Data.ToString())),
-                        MenuFactory.CreateMenuItem("Edit", null)
-                    };                    
+                        return new IMenuItem[]
+                            {
+                                MenuFactory.CreateMenuItem("Add connection", () => CommandBus.Send(new ConnectionAddCommand()))
+                            };
+
+                    }
+                case ObjectExplorerItemType.Connection:
+                    {
+                        string connectionString = objectExplorerItem.Data.ToString();
+
+                        return new IMenuItem[]
+                            {
+                                MenuFactory.CreateMenuItem("Connect", () => CommandBus.Send(new ConnectCommand(connectionString)) ),
+                                MenuFactory.CreateMenuItem("Edit", () => CommandBus.Send(new ConnectionEditCommand(objectExplorerItem)) )
+                            };
+                    }
                 default:
                     return new IMenuItem[] { };                    
             }            

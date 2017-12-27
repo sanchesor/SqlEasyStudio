@@ -10,7 +10,7 @@ namespace SqlEasyStudio.UI.Model
     public interface IMenuFactory
     {
         IMenuItem CreateMenuItem();
-        IMenuItem CreateMenuItem(string text, ICommand command);
+        IMenuItem CreateMenuItem(string text, Action commandHandler);
         IContextMenu CreateContextMenu();
     }
 }

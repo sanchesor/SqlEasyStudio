@@ -7,11 +7,7 @@ using SqlEasyStudio.Properties;
 using SqlEasyStudio.PlaginGateway;
 using System.Windows.Forms;
 using SqlEasyStudio.UI.Forms.Factories;
-using SqlEasyStudio.Infrastructure.IoC.Container;
-using SqlEasyStudio.Infrastructure.IoC.Extensions;
-using System.Reflection;
-using System.Linq;
-using SqlEasyStudio.Infrastructure.IoC;
+using SqlEasyStudio.PluginEntryPoint;
 
 /// <summary>
 /// 
@@ -35,35 +31,14 @@ namespace Kbg.NppPluginNET
         {            
         }
 
-        private static void RegisterComponents()
-        {
-            var container = ContainerDelivery.GetContainer();
-
-            var components = (from t in Assembly.GetExecutingAssembly().GetTypes()
-                              where t.ShouldRegisterComponent()
-                              select t)
-                             .ToArray();
-            foreach (var component in components)
-            {
-                var interfaces = component.GetInterfaces();
-                if (interfaces.Count() == 0)
-                {
-                    container.Register(component, component, component.GetComponentLifestyle());
-                }
-                else
-                {
-                    foreach (var interf in interfaces)
-                        container.Register(interf, component, component.GetComponentLifestyle());
-                }
-            }
-        }
 
         /// <summary>
         /// 
         /// </summary>
         internal static void CommandMenuInit()
         {
-            RegisterComponents();
+            BootStrapper.RegisterComponents();
+            BootStrapper.RegisterCommandHandlers();
 
             PluginBase.SetCommand(0, "Object explorer", ToggleObjectExplorer);
         }
