@@ -89,9 +89,6 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="Microsoft.CSharp" />
-    <Reference Include="Microsoft.Office.Interop.Outlook, Version=15.0.0.0, Culture=neutral, PublicKeyToken=71e9bce111e9429c, processorArchitecture=MSIL">
-      <EmbedInteropTypes>True</EmbedInteropTypes>
-    </Reference>
     <Reference Include="PresentationCore" />
     <Reference Include="PresentationFramework" />
     <Reference Include="System" />
@@ -147,6 +144,7 @@
     <Compile Include="PluginEntryPoint\PluginInfrastructure\Msgs_h.cs" />
     <Compile Include="PluginEntryPoint\PluginInfrastructure\Preference_h.cs" />
     <Compile Include="PluginEntryPoint\PluginInfrastructure\Resource_h.cs" />
+    <Compile Include="PluginGateway\PluginEnvironment.cs" />
     <Compile Include="PluginGateway\PluginFormContainer.cs" />
     <Compile Include="PluginGateway\PluginForm\Implementation\PluginForm.cs" />
     <Compile Include="PluginGateway\PluginForm\IPluginForm.cs" />
