@@ -7,6 +7,7 @@ using SqlEasyStudio.Infrastructure.IoC;
 using SqlEasyStudio.UI.Model.Extensions;
 using System.Linq;
 using System.Collections.Generic;
+using SqlEasyStudio.Application.Commands;
 
 namespace SqlEasyStudio.UI.Presenters
 {
@@ -41,30 +42,11 @@ namespace SqlEasyStudio.UI.Presenters
             SetNodeContextMenu(View.SelectedNode);            
         }
 
-        private IEnumerable<IMenuItem> GetNodeMenuItems(ITreeNode node)
-        {
-            ObjectExplorerItem item = node.Data as ObjectExplorerItem;
-            switch(item.ItemType)
-            {
-                case Domain.Enums.ObjectExplorerItemType.Connection:
-                    {
-                        IMenuItem menuItem = MenuFactory.CreateMenuItem();
-                        menuItem.Name = "Connect";
-                        yield return menuItem;
-
-                        menuItem = MenuFactory.CreateMenuItem();
-                        menuItem.Name = "Edit";
-                        yield return menuItem;
-                    }
-                    break;                    
-            }
-        }
-
         private void SetNodeContextMenu(ITreeNode node)
         {
             if (node.ContextMenu == null)
             {                
-                IEnumerable<IMenuItem> menuItems = GetNodeMenuItems(node);
+                IMenuItem[] menuItems = GetNodeMenuItems(node);
                 if (menuItems.Count() > 0)
                 {
                     IContextMenu contextMenu = MenuFactory.CreateContextMenu();
@@ -75,6 +57,22 @@ namespace SqlEasyStudio.UI.Presenters
                     node.ContextMenu = contextMenu;
                 }
             }
+        }
+
+        private IMenuItem[] GetNodeMenuItems(ITreeNode node)
+        {
+            ObjectExplorerItem item = node.Data as ObjectExplorerItem;
+            switch (item.ItemType)
+            {
+                case Domain.Enums.ObjectExplorerItemType.Connection:
+                    return new IMenuItem[]
+                    {
+                        MenuFactory.CreateMenuItem("Connect", new ConnectCommand((node.Data as ObjectExplorerItem).Data.ToString())),
+                        MenuFactory.CreateMenuItem("Edit", null)
+                    };                    
+                default:
+                    return new IMenuItem[] { };                    
+            }            
         }
 
         private void View_Load(object sender, EventArgs e)

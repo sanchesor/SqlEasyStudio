@@ -1,4 +1,5 @@
-﻿using System;
+﻿using SqlEasyStudio.Infrastructure.Messaging;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -9,6 +10,7 @@ namespace SqlEasyStudio.UI.Model
     public interface IMenuFactory
     {
         IMenuItem CreateMenuItem();
+        IMenuItem CreateMenuItem(string text, ICommand command);
         IContextMenu CreateContextMenu();
     }
 }
