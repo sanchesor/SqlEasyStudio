@@ -6,7 +6,7 @@ namespace SqlEasyStudio.Persistance
 {
     [Component]
     public class XmlObjectExplorerRepositoryFactory : IObjectExplorerRepositoryFactory
-    {        
+    {
         private string sourceFile = PluginEnvironment.ConfigDir + "\\cons.xml";
         public IObjectExplorerRepository Create()
         {
