@@ -1,4 +1,5 @@
-﻿using SqlEasyStudio.Infrastructure.Messaging;
+﻿using SqlEasyStudio.Domain;
+using SqlEasyStudio.Infrastructure.Messaging;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,11 +10,11 @@ namespace SqlEasyStudio.Application.Commands
 {
     public class ConnectCommand
     {
-        public string ConnectionString { get; private set; }
+        public ObjectExplorerItem ConnectionItem { get; private set; }
 
-        public ConnectCommand(string connectionString)
+        public ConnectCommand(ObjectExplorerItem connectionItem)
         {
-            ConnectionString = connectionString;
+            ConnectionItem = connectionItem;
         }
     }
 }

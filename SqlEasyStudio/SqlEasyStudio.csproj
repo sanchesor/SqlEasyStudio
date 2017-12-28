@@ -106,6 +106,7 @@
     <Compile Include="Application\Handlers\ConnectCommandHandler.cs" />
     <Compile Include="Application\Handlers\ConnectionAddCommandHandler.cs" />
     <Compile Include="Application\Handlers\ConnectionEditCommandHandler.cs" />
+    <Compile Include="Application\Services\ConnectionMapper.cs" />
     <Compile Include="Domain\Repositories\IObjectExplorerRepository.cs" />
     <Compile Include="Domain\Repositories\IObjectExplorerRepositoryFactory.cs" />
     <Compile Include="Domain\ObjectExplorerItemType.cs" />
@@ -132,10 +133,10 @@
     <Compile Include="Infrastructure\IoC\IoCHelper.cs" />
     <Compile Include="Infrastructure\Validation\Validate.cs" />
     <Compile Include="PluginEntryPoint\BootStrapper.cs" />
-    <Compile Include="PluginGateway\Editor\IDocument.cs" />
-    <Compile Include="PluginGateway\Editor\IEditor.cs" />
-    <Compile Include="PluginGateway\Editor\Implementation\NppDocument.cs" />
-    <Compile Include="PluginGateway\Editor\Implementation\NppEditor.cs" />
+    <Compile Include="Application\Documents\IDocument.cs" />
+    <Compile Include="Application\Documents\IDocumentsController.cs" />
+    <Compile Include="PluginGateway\Implementation\NppDocument.cs" />
+    <Compile Include="PluginGateway\Implementation\NppEditor.cs" />
     <Compile Include="PluginEntryPoint\PluginInfrastructure\ClikeStringArray.cs" />
     <Compile Include="PluginEntryPoint\PluginInfrastructure\DllExport\DllExportAttribute.cs" />
     <Compile Include="PluginEntryPoint\PluginInfrastructure\Win32.cs" />
@@ -152,10 +153,10 @@
     <Compile Include="PluginEntryPoint\PluginInfrastructure\Msgs_h.cs" />
     <Compile Include="PluginEntryPoint\PluginInfrastructure\Preference_h.cs" />
     <Compile Include="PluginEntryPoint\PluginInfrastructure\Resource_h.cs" />
+    <Compile Include="PluginGateway\IPluginForm.cs" />
     <Compile Include="PluginGateway\PluginEnvironment.cs" />
     <Compile Include="PluginGateway\PluginFormContainer.cs" />
-    <Compile Include="PluginGateway\PluginForm\Implementation\PluginForm.cs" />
-    <Compile Include="PluginGateway\PluginForm\IPluginForm.cs" />
+    <Compile Include="PluginGateway\Implementation\PluginForm.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="PluginEntryPoint\PluginInfrastructure\UnmanagedExports.cs" />
     <Compile Include="UI\Forms\Implementation\Menu\FormsContextMenu.cs" />

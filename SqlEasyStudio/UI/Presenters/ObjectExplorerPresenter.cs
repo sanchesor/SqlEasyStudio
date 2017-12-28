@@ -10,12 +10,14 @@ using System.Collections.Generic;
 using SqlEasyStudio.Application.Commands;
 using SqlEasyStudio.Infrastructure.Messaging;
 using SqlEasyStudio.Domain.Enums;
+using SqlEasyStudio.Infrastructure.IoC.Container;
 
 namespace SqlEasyStudio.UI.Presenters
 {
     public class ObjectExplorerPresenter
     {
         private IObjectExplorerView View;
+        private IContainer Container;
         private IObjectExplorerRepositoryFactory ObjectExplorerRepositoryFactory;
         private ITreeNodeFactory TreeNodeFactory;
         private IMenuFactory MenuFactory;
@@ -29,10 +31,12 @@ namespace SqlEasyStudio.UI.Presenters
             view.NodeMouseClick += View_NodeMouseClick;
             view.NodeAfterSelect += View_NodeAfterSelect;
 
-            TreeNodeFactory = ContainerDelivery.GetContainer().Resolve<ITreeNodeFactory>();
-            ObjectExplorerRepositoryFactory = ContainerDelivery.GetContainer().Resolve<IObjectExplorerRepositoryFactory>();
-            MenuFactory = ContainerDelivery.GetContainer().Resolve<IMenuFactory>();
-            CommandBus = ContainerDelivery.GetContainer().Resolve<ICommandBus>();
+            Container = ContainerDelivery.GetContainer();
+
+            TreeNodeFactory = Container.Resolve<ITreeNodeFactory>();
+            ObjectExplorerRepositoryFactory = Container.Resolve<IObjectExplorerRepositoryFactory>();
+            MenuFactory = Container.Resolve<IMenuFactory>();
+            CommandBus = Container.Resolve<ICommandBus>();
         }
 
         private void View_NodeAfterSelect(object sender, EventArgs e)
@@ -77,12 +81,10 @@ namespace SqlEasyStudio.UI.Presenters
 
                     }
                 case ObjectExplorerItemType.Connection:
-                    {
-                        string connectionString = objectExplorerItem.Data.ToString();
-
+                    {                        
                         return new IMenuItem[]
                             {
-                                MenuFactory.CreateMenuItem("Connect", () => CommandBus.Send(new ConnectCommand(connectionString)) ),
+                                MenuFactory.CreateMenuItem("Connect", () => CommandBus.Send(new ConnectCommand(objectExplorerItem)) ),
                                 MenuFactory.CreateMenuItem("Edit", () => CommandBus.Send(new ConnectionEditCommand(objectExplorerItem)) )
                             };
                     }

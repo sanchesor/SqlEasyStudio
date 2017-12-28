@@ -1,4 +1,4 @@
-﻿namespace SqlEasyStudio.PluginGateway.PluginForm
+﻿namespace SqlEasyStudio.PluginGateway
 {
     public interface IPluginForm
     {

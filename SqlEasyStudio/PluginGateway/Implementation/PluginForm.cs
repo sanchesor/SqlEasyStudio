@@ -5,7 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Windows.Forms;
 
-namespace SqlEasyStudio.PluginGateway.PluginForm.Implementation
+namespace SqlEasyStudio.PluginGateway.Implementation
 {
     public class PluginForm : IPluginForm
     {

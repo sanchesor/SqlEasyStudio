@@ -1,13 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Text;
 using System.Runtime.InteropServices;
 using System.Windows.Forms;
-using System.Drawing;
 using Kbg.NppPluginNET.PluginInfrastructure;
 using SqlEasyStudio.Infrastructure.Validation;
-using SqlEasyStudio.PluginGateway.PluginForm;
-using SqlEasyStudio.PluginGateway.PluginForm.Implementation;
+using SqlEasyStudio.PluginGateway;
+using SqlEasyStudio.PluginGateway.Implementation;
 
 namespace SqlEasyStudio.PlaginGateway
 {

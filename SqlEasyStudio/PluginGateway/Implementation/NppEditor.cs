@@ -1,13 +1,17 @@
 ﻿using Kbg.NppPluginNET.PluginInfrastructure;
+using SqlEasyStudio.Application;
+using SqlEasyStudio.Infrastructure.IoC.Attributes;
+using SqlEasyStudio.Infrastructure.IoC.Container;
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 
-namespace SqlEasyStudio.PluginEntryPoint.Editor.Implementation
+namespace SqlEasyStudio.PluginGateway.Implementation
 {
-    public class NppEditor : IEditor
+    [Component (LifeCycle = LifeCycle.Singleton)]
+    public class NppDocumentsController : IDocumentsController
     {
+        private Dictionary<IntPtr, IDocument> _docs = new Dictionary<IntPtr, IDocument>();
+
         public IDocument CurrentDocument
         {
             get
@@ -19,8 +23,6 @@ namespace SqlEasyStudio.PluginEntryPoint.Editor.Implementation
                 }
                 return _docs[doc];
             }
-        }
-
-        private Dictionary<IntPtr, IDocument> _docs = new Dictionary<IntPtr, IDocument>();
+        }        
     }
 }
