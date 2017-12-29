@@ -1,6 +1,5 @@
 ﻿using SqlEasyStudio.Application.Commands;
-using SqlEasyStudio.Application.Services;
-using SqlEasyStudio.Domain;
+using SqlEasyStudio.Application.Connections;
 using SqlEasyStudio.Infrastructure.IoC;
 using SqlEasyStudio.Infrastructure.Messaging;
 
@@ -17,7 +16,7 @@ namespace SqlEasyStudio.Application.Handlers
 
         public void Handle(ConnectCommand command)
         {
-            ConnectionMapper.Connect(documentsController.CurrentDocument, command.ConnectionItem);
+            DocumentConnector.Connect(documentsController.CurrentDocument, command.ConnectionItem);
         }
     }
 }

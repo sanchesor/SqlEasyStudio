@@ -103,10 +103,21 @@
     <Compile Include="Application\Commands\ConnectCommand.cs" />
     <Compile Include="Application\Commands\ConnectionAddCommand.cs" />
     <Compile Include="Application\Commands\ConnectionEditCommand.cs" />
+    <Compile Include="Application\Connections\ConnectionLink.cs" />
+    <Compile Include="Application\Connections\IConnection.cs" />
+    <Compile Include="Application\Connections\IConnectionFactory.cs" />
+    <Compile Include="Application\QueryExecution\IQueryExecutionResult.cs" />
+    <Compile Include="Application\QueryExecution\IQueryExecution.cs" />
     <Compile Include="Application\Handlers\ConnectCommandHandler.cs" />
     <Compile Include="Application\Handlers\ConnectionAddCommandHandler.cs" />
     <Compile Include="Application\Handlers\ConnectionEditCommandHandler.cs" />
-    <Compile Include="Application\Services\ConnectionMapper.cs" />
+    <Compile Include="Application\Connections\DocumentConnector.cs" />
+    <Compile Include="Application\QueryExecution\IQueryExecutionResultCollection.cs" />
+    <Compile Include="Database\Implementation\Connection.cs" />
+    <Compile Include="Database\Implementation\ConnectionFactory.cs" />
+    <Compile Include="Database\Implementation\QueryExecution.cs" />
+    <Compile Include="Database\Implementation\QueryExecutionResult.cs" />
+    <Compile Include="Database\Implementation\QueryExecutionResultCollection.cs" />
     <Compile Include="Domain\Repositories\IObjectExplorerRepository.cs" />
     <Compile Include="Domain\Repositories\IObjectExplorerRepositoryFactory.cs" />
     <Compile Include="Domain\ObjectExplorerItemType.cs" />
@@ -208,7 +219,9 @@
   <ItemGroup>
     <Service Include="{82A7F48D-3B50-4B1E-B82E-3ADA8210C358}" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Folder Include="Application\Connections\Events\" />
+  </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <Import Project="$(MSBuildProjectDirectory)\PluginEntryPoint\PluginInfrastructure\DllExport\NppPlugin.DllExport.targets" />
   <Import Condition="Exists('$(DevEnvDir)\..\..\VC\Auxiliary\Build')" Project="$(DevEnvDir)\..\..\VC\Auxiliary\Build\Microsoft.VCToolsVersion.default.props" />

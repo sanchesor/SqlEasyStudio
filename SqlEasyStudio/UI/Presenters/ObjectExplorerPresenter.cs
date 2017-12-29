@@ -81,7 +81,7 @@ namespace SqlEasyStudio.UI.Presenters
 
                     }
                 case ObjectExplorerItemType.Connection:
-                    {                        
+                    {
                         return new IMenuItem[]
                             {
                                 MenuFactory.CreateMenuItem("Connect", () => CommandBus.Send(new ConnectCommand(objectExplorerItem)) ),
