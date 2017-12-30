@@ -11,5 +11,10 @@ namespace SqlEasyStudio.Database.Implementation
     {
         public List<QueryExecutionResult> ResultList { get; set; }
         public IEnumerable<IQueryExecutionResult> Results { get => ResultList; }
+
+        public QueryExecutionResultCollection()
+        {
+            ResultList = new List<QueryExecutionResult>();
+        }
     }
 }

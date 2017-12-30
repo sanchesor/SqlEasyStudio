@@ -6,10 +6,13 @@ using Kbg.NppPluginNET.PluginInfrastructure;
 using SqlEasyStudio.Infrastructure.Validation;
 using SqlEasyStudio.PluginGateway;
 using SqlEasyStudio.PluginGateway.Implementation;
+using SqlEasyStudio.Infrastructure.IoC.Attributes;
+using SqlEasyStudio.Infrastructure.IoC.Container;
 
-namespace SqlEasyStudio.PlaginGateway
+namespace SqlEasyStudio.PlaginGateway.Implementation
 {
-    public class PluginFormContainer
+    [Component(LifeCycle.Singleton)]
+    public class PluginFormContainer : IPluginFormContainer
     {        
         public Dictionary<string, IPluginForm> Forms { get; private set; }
 

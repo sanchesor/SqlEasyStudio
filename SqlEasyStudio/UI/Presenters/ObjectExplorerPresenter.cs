@@ -85,7 +85,8 @@ namespace SqlEasyStudio.UI.Presenters
                         return new IMenuItem[]
                             {
                                 MenuFactory.CreateMenuItem("Connect", () => CommandBus.Send(new ConnectCommand(objectExplorerItem)) ),
-                                MenuFactory.CreateMenuItem("Edit", () => CommandBus.Send(new ConnectionEditCommand(objectExplorerItem)) )
+                                MenuFactory.CreateMenuItem("Edit", () => CommandBus.Send(new ConnectionEditCommand(objectExplorerItem)) ),
+                                MenuFactory.CreateMenuItem("Execute", () => CommandBus.Send(new ExecuteCommand()) )
                             };
                     }
                 default:

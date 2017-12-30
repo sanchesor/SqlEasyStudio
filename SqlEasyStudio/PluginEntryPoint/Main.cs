@@ -4,10 +4,9 @@ using System.Drawing;
 using System;
 using System.Runtime.InteropServices;
 using SqlEasyStudio.Properties;
-using SqlEasyStudio.PlaginGateway;
-using System.Windows.Forms;
-using SqlEasyStudio.UI.Forms.Factories;
 using SqlEasyStudio.PluginEntryPoint;
+using SqlEasyStudio.Infrastructure.IoC;
+using SqlEasyStudio.PluginGateway;
 
 /// <summary>
 /// 
@@ -24,8 +23,8 @@ namespace Kbg.NppPluginNET
         /// </summary>
         public const string PluginName = "Sql Easy Studio";
         static Bitmap tbBmp = Resources.ses;
-        static FormsFactory formsFactory = new FormsFactory();
-        static PluginFormContainer pluginFormContainer = new PluginFormContainer();        
+
+        private static IPluginFormProvider pluginFormProvider;
 
         public static void OnNotification(ScNotification notification)
         {            
@@ -40,7 +39,10 @@ namespace Kbg.NppPluginNET
             BootStrapper.RegisterComponents();
             BootStrapper.RegisterCommandHandlers();
 
+            pluginFormProvider = ContainerDelivery.GetContainer().Resolve<IPluginFormProvider>();
+
             PluginBase.SetCommand(0, "Object explorer", ToggleObjectExplorer);
+            PluginBase.SetCommand(1, "Output", ToggleOutput);
         }
 
         /// <summary>
@@ -66,18 +68,13 @@ namespace Kbg.NppPluginNET
 
         internal static void ToggleObjectExplorer()
         {
-                       
-            if(!pluginFormContainer.Forms.ContainsKey("object_explorer"))
-            {
-                Form objectExplorerForm = formsFactory.Create("object_explorer");
-                pluginFormContainer.Register("object_explorer", objectExplorerForm, "Object explorer", 0, NppTbMsg.DWS_DF_CONT_LEFT);
-            }
-            else
-            {
-                pluginFormContainer.Forms["object_explorer"].ToggleVisible();
-            }
-                        
+            pluginFormProvider.ToggleVisible("object_explorer");
         }
 
+        internal static void ToggleOutput()
+        {
+            pluginFormProvider.ToggleVisible("output");
+        }
+        
     }
 }
