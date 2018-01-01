@@ -9,18 +9,18 @@ namespace SqlEasyStudio.PluginGateway.Implementation
 {
     public class PluginForm : IPluginForm
     {
-        public string Name => internalForm.Name;
+        public string Name => InternalForm.Name;
 
-        public bool Visible { get { return internalForm.Visible; } }
+        public bool Visible { get { return InternalForm.Visible; } }
 
         public void Hide()
         {
-            Win32.SendMessage(PluginBase.nppData._nppHandle, (uint)NppMsg.NPPM_DMMHIDE, 0, internalForm.Handle);
+            Win32.SendMessage(PluginBase.nppData._nppHandle, (uint)NppMsg.NPPM_DMMHIDE, 0, InternalForm.Handle);
         }
 
         public void Show()
         {
-            Win32.SendMessage(PluginBase.nppData._nppHandle, (uint)NppMsg.NPPM_DMMSHOW, 0, internalForm.Handle);
+            Win32.SendMessage(PluginBase.nppData._nppHandle, (uint)NppMsg.NPPM_DMMSHOW, 0, InternalForm.Handle);
         }
 
         public void ToggleVisible()
@@ -31,11 +31,11 @@ namespace SqlEasyStudio.PluginGateway.Implementation
                 Show();
         }
 
-        private Form internalForm;
+        public Form InternalForm { get; private set; }
 
         public PluginForm(Form form)
         {
-            internalForm = form;
+            InternalForm = form;
         }
     }
 }

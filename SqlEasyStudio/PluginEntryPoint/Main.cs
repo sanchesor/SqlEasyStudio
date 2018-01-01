@@ -7,6 +7,8 @@ using SqlEasyStudio.Properties;
 using SqlEasyStudio.PluginEntryPoint;
 using SqlEasyStudio.Infrastructure.IoC;
 using SqlEasyStudio.PluginGateway;
+using SqlEasyStudio.Infrastructure.Messaging;
+using SqlEasyStudio.Application.Commands;
 
 /// <summary>
 /// 
@@ -25,6 +27,7 @@ namespace Kbg.NppPluginNET
         static Bitmap tbBmp = Resources.ses;
 
         private static IPluginFormProvider pluginFormProvider;
+        private static ICommandBus commandBus;
 
         public static void OnNotification(ScNotification notification)
         {            
@@ -40,9 +43,11 @@ namespace Kbg.NppPluginNET
             BootStrapper.RegisterCommandHandlers();
 
             pluginFormProvider = ContainerDelivery.GetContainer().Resolve<IPluginFormProvider>();
+            commandBus = ContainerDelivery.GetContainer().Resolve<ICommandBus>();
 
             PluginBase.SetCommand(0, "Object explorer", ToggleObjectExplorer);
             PluginBase.SetCommand(1, "Output", ToggleOutput);
+            PluginBase.SetCommand(2, "Execute", Execute);
         }
 
         /// <summary>
@@ -74,6 +79,11 @@ namespace Kbg.NppPluginNET
         internal static void ToggleOutput()
         {
             pluginFormProvider.ToggleVisible("output");
+        }
+
+        internal static void Execute()
+        {
+            commandBus.Send(new ExecuteCommand());
         }
         
     }

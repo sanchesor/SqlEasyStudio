@@ -7,6 +7,8 @@ using System.Threading.Tasks;
 using SqlEasyStudio.Application;
 using SqlEasyStudio.Infrastructure.IoC.Attributes;
 using SqlEasyStudio.Infrastructure.IoC;
+using SqlEasyStudio.UI.Forms;
+using SqlEasyStudio.Database.Implementation;
 
 namespace SqlEasyStudio.PluginGateway.Implementation
 {
@@ -20,8 +22,19 @@ namespace SqlEasyStudio.PluginGateway.Implementation
             pluginFormProvider = ContainerDelivery.GetContainer().Resolve<IPluginFormProvider>();
         }
         public void ConsumeResults(IQueryExecutionResultCollection results, IDocument document)
-        {
-            pluginFormProvider.FormContainer.Forms["output"].Show();
+        {            
+            pluginFormProvider.Show("output");
+
+            PluginForm f = pluginFormProvider.FormContainer.Forms["output"] as PluginForm;
+            OutputDlg dlg = (f.InternalForm as OutputDlg);
+            foreach(var res in (results as QueryExecutionResultCollection).ResultList)
+            {
+                if (res.Data != null)
+                    dlg.AddDataGrid(res.Data);
+                else
+                    dlg.AddMessage(res.Message);
+            }
+            
         }
     }
 }

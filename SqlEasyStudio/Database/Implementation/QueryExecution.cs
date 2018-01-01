@@ -10,18 +10,11 @@ namespace SqlEasyStudio.Database.Implementation
     {
         public IQueryExecutionResultCollection Execute(IConnection connection, string query)
         {
-            QueryExecutionResultCollection resultCollection = new QueryExecutionResultCollection();
+            SqlConnection sqlConnection = (connection as Connection).SourceConnection;
+            if(sqlConnection.State != ConnectionState.Open)
+                sqlConnection.Open();
 
-            Connection conn = connection as Connection;
-            using (SqlConnection sqlConnection = conn.SourceConnection)
-            {
-                if(sqlConnection.State != ConnectionState.Open)
-                    sqlConnection.Open();
-
-                resultCollection = ExecuteQuery(sqlConnection, query);
-            }
-
-            return resultCollection;
+            return ExecuteQuery(sqlConnection, query);            
         }
 
         private QueryExecutionResultCollection ExecuteQuery(SqlConnection conn, string query)
