@@ -2,6 +2,7 @@
 using SqlEasyStudio.Application.Connections;
 using SqlEasyStudio.Application.QueryExecution;
 using SqlEasyStudio.Infrastructure.IoC;
+using SqlEasyStudio.Infrastructure.IoC.Container;
 using SqlEasyStudio.Infrastructure.Messaging;
 using System;
 using System.Collections.Generic;
@@ -14,21 +15,45 @@ namespace SqlEasyStudio.Application.Handlers
 
     public class ExecuteCommandHandler : ICommandHandler<ExecuteCommand>
     {
+        IContainer container;
+
+        public ExecuteCommandHandler()
+        {
+            container = ContainerDelivery.GetContainer();
+        }
+
         public void Handle(ExecuteCommand command)
         {
-            var documentsController = ContainerDelivery.GetContainer().Resolve<IDocumentsController>();
-            var currentDocument = documentsController.CurrentDocument;
-            var connection = DocumentConnector.ConnectedDocuments[currentDocument].Connection;
-            var query = currentDocument.SelectedText.Length > 0 ? currentDocument.SelectedText : currentDocument.Text;
+            var currentDocument = GetCurrentDocument();            
+            var connection = GetDocumentConnection(currentDocument);
+            var query = GetDocumentTextForExecution(currentDocument);
+                        
+            var results = GetQueryExecutor().Execute(connection, query);
 
-            var queryExecutionFactory = ContainerDelivery.GetContainer().Resolve<IQueryExecutionFactory>();
-            var queryExecution = queryExecutionFactory.Create();
-
-            var resultsConsumer = ContainerDelivery.GetContainer().Resolve<IQueryExecutionResultsConsumer>();
-
-            var results = queryExecution.Execute(connection, query);
-
+            var resultsConsumer = container.Resolve<IQueryExecutionResultsConsumer>();
             resultsConsumer.ConsumeResults(results, currentDocument);            
+        }
+
+        private IDocument GetCurrentDocument()
+        {
+            var documentsController = container.Resolve<IDocumentsController>();
+            return documentsController.CurrentDocument;
+        }
+
+        private IQueryExecutor GetQueryExecutor()
+        {
+            var queryExecutionFactory = container.Resolve<IQueryExecutionFactory>();
+            return queryExecutionFactory.Create();
+        }
+
+        private string GetDocumentTextForExecution(IDocument document)
+        {
+            return document.SelectedText.Length > 0 ? document.SelectedText : document.Text;
+        }
+
+        private IConnection GetDocumentConnection(IDocument document)
+        {
+            return DocumentConnector.ConnectedDocuments[document].Connection;
         }
     }
 }

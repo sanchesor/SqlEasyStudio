@@ -2,7 +2,7 @@
 
 namespace SqlEasyStudio.Application.QueryExecution
 {
-    public interface IQueryExecution
+    public interface IQueryExecutor
     {
         IQueryExecutionResultCollection Execute(IConnection connection, string query);        
     }

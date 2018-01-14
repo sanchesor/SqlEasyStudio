@@ -110,7 +110,7 @@
     <Compile Include="Application\Handlers\ExecuteCommandHandler.cs" />
     <Compile Include="Application\QueryExecution\IQueryExecutionFactory.cs" />
     <Compile Include="Application\QueryExecution\IQueryExecutionResult.cs" />
-    <Compile Include="Application\QueryExecution\IQueryExecution.cs" />
+    <Compile Include="Application\QueryExecution\IQueryExecutor.cs" />
     <Compile Include="Application\Handlers\ConnectCommandHandler.cs" />
     <Compile Include="Application\Handlers\ConnectionAddCommandHandler.cs" />
     <Compile Include="Application\Handlers\ConnectionEditCommandHandler.cs" />
@@ -119,7 +119,7 @@
     <Compile Include="Application\QueryExecution\IQueryExecutionResultsConsumer.cs" />
     <Compile Include="Database\Implementation\Connection.cs" />
     <Compile Include="Database\Implementation\ConnectionFactory.cs" />
-    <Compile Include="Database\Implementation\QueryExecution.cs" />
+    <Compile Include="Database\Implementation\QueryExecutor.cs" />
     <Compile Include="Database\Implementation\QueryExecutionFactory.cs" />
     <Compile Include="Database\Implementation\QueryExecutionResult.cs" />
     <Compile Include="Database\Implementation\QueryExecutionResultCollection.cs" />

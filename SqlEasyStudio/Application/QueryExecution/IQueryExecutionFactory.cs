@@ -8,6 +8,6 @@ namespace SqlEasyStudio.Application.QueryExecution
 {
     public interface IQueryExecutionFactory
     {
-        IQueryExecution Create();
+        IQueryExecutor Create();
     }
 }

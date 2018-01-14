@@ -11,9 +11,9 @@ namespace SqlEasyStudio.Database.Implementation
     [Component]
     public class QueryExecutionFactory : IQueryExecutionFactory
     {
-        public IQueryExecution Create()
+        public IQueryExecutor Create()
         {
-            return new QueryExecution();
+            return new QueryExecutor();
         }
     }
 }

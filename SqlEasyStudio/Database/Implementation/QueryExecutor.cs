@@ -6,7 +6,7 @@ using System.Data.SqlClient;
 
 namespace SqlEasyStudio.Database.Implementation
 {
-    public class QueryExecution : IQueryExecution
+    public class QueryExecutor : IQueryExecutor
     {
         public IQueryExecutionResultCollection Execute(IConnection connection, string query)
         {
