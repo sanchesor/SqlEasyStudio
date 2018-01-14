@@ -1,6 +1,7 @@
 ﻿using SqlEasyStudio.UI.Model;
 using System;
 using System.Collections.Generic;
+using System.Drawing;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -48,6 +49,16 @@ namespace SqlEasyStudio.UI.Forms.Implementation
             {
                 contextMenu = (FormsContextMenu)value;
                 Node.ContextMenu = contextMenu.SourceContextMenu;
+            }
+        }
+
+        public bool IsBold
+        {
+            get { return Node.NodeFont.Bold; }
+            set
+            {                
+                Node.NodeFont = new Font(Node.TreeView.Font, value ? FontStyle.Bold : FontStyle.Regular);
+                Node.Text = Node.Text; // needed to refresh boldnes
             }
         }
     }

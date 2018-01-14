@@ -12,5 +12,6 @@ namespace SqlEasyStudio.UI.Model
         ITreeNodeCollection<ITreeNode> Nodes { get; }
         bool Expanded { get; set; }
         IContextMenu ContextMenu { get; set;}        
+        bool IsBold { get; set; }
     }
 }

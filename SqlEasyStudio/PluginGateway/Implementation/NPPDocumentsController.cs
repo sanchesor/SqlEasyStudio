@@ -16,13 +16,14 @@ namespace SqlEasyStudio.PluginGateway.Implementation
         {
             get
             {
-                IntPtr doc = PluginBase.GetCurrentScintilla();
+                IntPtr doc = PluginBase.GetCurrentBufferId();
                 if(!_docs.ContainsKey(doc))
                 {
                     _docs.Add(doc, new NppDocument(doc));
                 }
                 return _docs[doc];
             }
-        }        
+        }   
+        
     }
 }

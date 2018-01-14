@@ -43,6 +43,10 @@ namespace Kbg.NppPluginNET.PluginInfrastructure
             return (curScintilla == 0) ? nppData._scintillaMainHandle : nppData._scintillaSecondHandle;
         }
 
+        internal static IntPtr GetCurrentBufferId()
+        {
+            return Win32.SendMessage(nppData._nppHandle, (uint)NppMsg.NPPM_GETCURRENTBUFFERID, 0, 0);            
+        }
 
         static readonly Func<IScintillaGateway> gatewayFactory = () => new ScintillaGateway(GetCurrentScintilla());
 

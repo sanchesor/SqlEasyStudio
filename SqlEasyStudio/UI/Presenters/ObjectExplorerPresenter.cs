@@ -53,7 +53,10 @@ namespace SqlEasyStudio.UI.Presenters
                 foreach (ITreeNode node in nodesForItem[connectionItem])
                 {
                     if (node != null)
+                    {
                         node.Text = "[C] " + node.Text;
+                        node.IsBold = true;
+                    }
                 }
             }
         }
