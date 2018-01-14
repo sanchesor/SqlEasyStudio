@@ -104,6 +104,7 @@
     <Compile Include="Application\Commands\ConnectionAddCommand.cs" />
     <Compile Include="Application\Commands\ConnectionEditCommand.cs" />
     <Compile Include="Application\Commands\ExecuteCommand.cs" />
+    <Compile Include="Application\Connections\DocumentConnectedEvent.cs" />
     <Compile Include="Application\Connections\ConnectionLink.cs" />
     <Compile Include="Application\Connections\IConnection.cs" />
     <Compile Include="Application\Connections\IConnectionFactory.cs" />

@@ -11,6 +11,7 @@ using SqlEasyStudio.Application.Commands;
 using SqlEasyStudio.Infrastructure.Messaging;
 using SqlEasyStudio.Domain.Enums;
 using SqlEasyStudio.Infrastructure.IoC.Container;
+using SqlEasyStudio.Application.Connections;
 
 namespace SqlEasyStudio.UI.Presenters
 {
@@ -23,8 +24,12 @@ namespace SqlEasyStudio.UI.Presenters
         private IMenuFactory MenuFactory;
         private ICommandBus CommandBus;
 
+        private Dictionary<ObjectExplorerItem, List<ITreeNode>> nodesForItem;
+
         public ObjectExplorerPresenter(IObjectExplorerView view)
         {
+            nodesForItem = new Dictionary<ObjectExplorerItem, List<ITreeNode>>();
+
             View = view;
 
             view.Loaded += View_Load;            
@@ -37,6 +42,20 @@ namespace SqlEasyStudio.UI.Presenters
             ObjectExplorerRepositoryFactory = Container.Resolve<IObjectExplorerRepositoryFactory>();
             MenuFactory = Container.Resolve<IMenuFactory>();
             CommandBus = Container.Resolve<ICommandBus>();
+            DocumentConnector.DocumentConnected += DocumentConnector_DocumentConnected;
+        }
+
+        private void DocumentConnector_DocumentConnected(object sender, DocumentConnectedEvent e)
+        {
+            var connectionItem = e.ConnectionLink.ConnectionItem;
+            if (nodesForItem.ContainsKey(connectionItem))
+            {
+                foreach (ITreeNode node in nodesForItem[connectionItem])
+                {
+                    if (node != null)
+                        node.Text = "[C] " + node.Text;
+                }
+            }
         }
 
         private void View_NodeAfterSelect(object sender, EventArgs e)
@@ -95,23 +114,48 @@ namespace SqlEasyStudio.UI.Presenters
 
         private void View_Load(object sender, EventArgs e)
         {
-            LoadObjectExplorerTree();
+            LoadObjectExplorerTreeView();
+            ExpandConnections();
         }
 
-        private void LoadObjectExplorerTree()
+        private void LoadObjectExplorerTreeView()
         {
-            var objectExplorerRepository = ObjectExplorerRepositoryFactory.Create();
-            var objectExplorerTree = objectExplorerRepository.Load();
+            var objectExplorerTree = GenerateObjectExplorerTree();
             foreach (var item in objectExplorerTree.Items)
             {
-                ITreeNode n = item.ToUITreeNode(TreeNodeFactory);
+                ITreeNode n = CreateTreeNodeForItem(item);
                 View.Nodes.Add(n);
-            }
+            }            
+        }        
 
+        private void ExpandConnections()
+        {
             var connectionsNode = View.Nodes.FirstOrDefault();
             if (connectionsNode != null)
                 connectionsNode.Expanded = true;
-        }        
+        }
+
+        private ObjectExplorerTree GenerateObjectExplorerTree()
+        {
+            var objectExplorerRepository = ObjectExplorerRepositoryFactory.Create();
+            return objectExplorerRepository.Load();
+        }
+
+        private ITreeNode CreateTreeNodeForItem(ObjectExplorerItem item)
+        {
+            ITreeNode n = item.ToUITreeNode(TreeNodeFactory, AddNodeForItem);
+            AddNodeForItem(n, item);
+            return n;
+        }
+
+        private void AddNodeForItem(ITreeNode node, ObjectExplorerItem item)
+        {
+            if (!nodesForItem.ContainsKey(item))
+                nodesForItem.Add(item, new List<ITreeNode>());
+            
+            nodesForItem[item].Add(node);
+        }
+        
 
     }
 }

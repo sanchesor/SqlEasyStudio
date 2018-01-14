@@ -8,6 +8,7 @@ namespace SqlEasyStudio.Application.Connections
     public static class DocumentConnector
     {
         public static Dictionary<IDocument, ConnectionLink> ConnectedDocuments = new Dictionary<IDocument, ConnectionLink>();
+        public static event EventHandler<DocumentConnectedEvent> DocumentConnected;
 
         public static void Connect(IDocument document, ObjectExplorerItem connectionItem)
         {
@@ -18,7 +19,10 @@ namespace SqlEasyStudio.Application.Connections
             // todo: make async, connectionFactory.ConnectionCreated += .. (document, connectionLink)
             IConnection connection = connectionFactory.Create(connectionItem.Data as string);
 
-            ConnectedDocuments.Add(document, new ConnectionLink(connectionItem, connection));
+            var connectionLink = new ConnectionLink(connectionItem, connection);
+            ConnectedDocuments.Add(document, connectionLink);
+
+            DocumentConnected.Invoke(null, new DocumentConnectedEvent(document, connectionLink));
         }
     }
 }
