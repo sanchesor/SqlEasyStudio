@@ -54,7 +54,7 @@ namespace SqlEasyStudio.UI.Presenters
         {
             if (node.ContextMenu == null)
             {                
-                IMenuItem[] menuItems = GetNodeMenuItems(node);
+                IMenuItem[] menuItems = GenerateNodeMenuItems(node);
                 if (menuItems.Count() > 0)
                 {
                     IContextMenu contextMenu = MenuFactory.CreateContextMenu();
@@ -67,7 +67,7 @@ namespace SqlEasyStudio.UI.Presenters
             }
         }
 
-        private IMenuItem[] GetNodeMenuItems(ITreeNode treeNode)
+        private IMenuItem[] GenerateNodeMenuItems(ITreeNode treeNode)
         {
             ObjectExplorerItem objectExplorerItem = treeNode.Data as ObjectExplorerItem;
             switch (objectExplorerItem.ItemType)
