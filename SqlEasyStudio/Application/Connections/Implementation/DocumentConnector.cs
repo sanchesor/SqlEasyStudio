@@ -13,6 +13,7 @@ namespace SqlEasyStudio.Application.Connections.Implementation
     public class DocumentConnector : IDocumentConnector
     {
         public Dictionary<IDocument, ConnectionLink> ConnectedDocuments { get; }
+
         public event EventHandler<DocumentConnectionEvent> DocumentConnected;
         public event EventHandler<DocumentConnectionEvent> DocumentDisconnected;
 
