@@ -104,11 +104,12 @@
     <Compile Include="Application\Commands\ConnectionAddCommand.cs" />
     <Compile Include="Application\Commands\ConnectionEditCommand.cs" />
     <Compile Include="Application\Commands\ExecuteCommand.cs" />
-    <Compile Include="Application\Connections\DocumentConnectedEvent.cs" />
+    <Compile Include="Application\Connections\DocumentConnectionEvent.cs" />
     <Compile Include="Application\Connections\ConnectionLink.cs" />
     <Compile Include="Application\Connections\IConnection.cs" />
     <Compile Include="Application\Connections\IConnectionFactory.cs" />
     <Compile Include="Application\Connections\IDocumentConnector.cs" />
+    <Compile Include="Infrastructure\Exceptions\IExceptionHandler.cs" />
     <Compile Include="Application\Handlers\ExecuteCommandHandler.cs" />
     <Compile Include="Application\QueryExecution\IQueryExecutionFactory.cs" />
     <Compile Include="Application\QueryExecution\IQueryExecutionResult.cs" />
@@ -181,6 +182,7 @@
     <Compile Include="PluginGateway\Implementation\PluginForm.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="PluginEntryPoint\PluginInfrastructure\UnmanagedExports.cs" />
+    <Compile Include="UI\Forms\Implementation\Exceptions\ExceptionHandler.cs" />
     <Compile Include="UI\Forms\Implementation\Menu\FormsContextMenu.cs" />
     <Compile Include="UI\Forms\Implementation\Menu\FormsMenuItem.cs" />
     <Compile Include="UI\Forms\Implementation\Menu\FormsMenuItemCollection.cs" />

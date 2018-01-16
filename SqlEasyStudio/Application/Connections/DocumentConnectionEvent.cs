@@ -6,12 +6,12 @@ using System.Threading.Tasks;
 
 namespace SqlEasyStudio.Application.Connections
 {
-    public class DocumentConnectedEvent
+    public class DocumentConnectionEvent
     {
         public IDocument Document { get; }
         public ConnectionLink ConnectionLink { get; }
 
-        public DocumentConnectedEvent(IDocument document, ConnectionLink link)
+        public DocumentConnectionEvent(IDocument document, ConnectionLink link)
         {
             Document = document;
             ConnectionLink = link;

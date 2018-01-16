@@ -10,8 +10,10 @@ namespace SqlEasyStudio.Application.Connections
     public interface IDocumentConnector
     {
         Dictionary<IDocument, ConnectionLink> ConnectedDocuments { get; }
-        event EventHandler<DocumentConnectedEvent> DocumentConnected;
+        event EventHandler<DocumentConnectionEvent> DocumentConnected;
+        event EventHandler<DocumentConnectionEvent> DocumentDisconnected;
 
         void Connect(IDocument document, ObjectExplorerItem connectionItem);
+        void Disconnect(IDocument document);
     }
 }

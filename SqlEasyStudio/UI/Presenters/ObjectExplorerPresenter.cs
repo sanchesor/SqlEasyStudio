@@ -43,22 +43,38 @@ namespace SqlEasyStudio.UI.Presenters
             ObjectExplorerRepositoryFactory = Container.Resolve<IObjectExplorerRepositoryFactory>();
             MenuFactory = Container.Resolve<IMenuFactory>();
             CommandBus = Container.Resolve<ICommandBus>();
+
             documentConnector = Container.Resolve<IDocumentConnector>();
             documentConnector.DocumentConnected += DocumentConnector_DocumentConnected;
+            documentConnector.DocumentDisconnected += DocumentConnector_DocumentDisconnected;
         }
 
-        private void DocumentConnector_DocumentConnected(object sender, DocumentConnectedEvent e)
+        private void DocumentConnector_DocumentConnected(object sender, DocumentConnectionEvent e)
         {
-            var connectionItem = e.ConnectionLink.ConnectionItem;
-            if (nodesForItem.ContainsKey(connectionItem))
+            var item = e.ConnectionLink.ConnectionItem;
+            ApplyForItemNodes(item, (ITreeNode node) => 
             {
-                foreach (ITreeNode node in nodesForItem[connectionItem])
+                node.Text = "[C] " + item.Name;
+                node.IsBold = true;
+            });
+        }
+        private void DocumentConnector_DocumentDisconnected(object sender, DocumentConnectionEvent e)
+        {
+            var item = e.ConnectionLink.ConnectionItem;
+            ApplyForItemNodes(item, (ITreeNode node) =>
+            {
+                node.Text = item.Name;
+                node.IsBold = false;
+            });
+        }
+
+        private void ApplyForItemNodes(ObjectExplorerItem item, Action<ITreeNode> action)
+        {            
+            if (nodesForItem.ContainsKey(item))
+            {
+                foreach (ITreeNode node in nodesForItem[item])
                 {
-                    if (node != null)
-                    {
-                        node.Text = "[C] " + node.Text;
-                        node.IsBold = true;
-                    }
+                    action(node);
                 }
             }
         }
@@ -151,7 +167,7 @@ namespace SqlEasyStudio.UI.Presenters
             ITreeNode n = item.ToUITreeNode(TreeNodeFactory, AddNodeForItem);
             AddNodeForItem(n, item);
             return n;
-        }
+        }        
 
         private void AddNodeForItem(ITreeNode node, ObjectExplorerItem item)
         {
