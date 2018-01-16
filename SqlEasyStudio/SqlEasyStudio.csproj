@@ -108,6 +108,7 @@
     <Compile Include="Application\Connections\ConnectionLink.cs" />
     <Compile Include="Application\Connections\IConnection.cs" />
     <Compile Include="Application\Connections\IConnectionFactory.cs" />
+    <Compile Include="Application\Connections\IDocumentConnector.cs" />
     <Compile Include="Application\Handlers\ExecuteCommandHandler.cs" />
     <Compile Include="Application\QueryExecution\IQueryExecutionFactory.cs" />
     <Compile Include="Application\QueryExecution\IQueryExecutionResult.cs" />
@@ -115,7 +116,7 @@
     <Compile Include="Application\Handlers\ConnectCommandHandler.cs" />
     <Compile Include="Application\Handlers\ConnectionAddCommandHandler.cs" />
     <Compile Include="Application\Handlers\ConnectionEditCommandHandler.cs" />
-    <Compile Include="Application\Connections\DocumentConnector.cs" />
+    <Compile Include="Application\Connections\Implementation\DocumentConnector.cs" />
     <Compile Include="Application\QueryExecution\IQueryExecutionResultCollection.cs" />
     <Compile Include="Application\QueryExecution\IQueryExecutionResultsConsumer.cs" />
     <Compile Include="Database\Implementation\Connection.cs" />

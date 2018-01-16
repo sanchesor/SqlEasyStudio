@@ -23,6 +23,7 @@ namespace SqlEasyStudio.UI.Presenters
         private ITreeNodeFactory TreeNodeFactory;
         private IMenuFactory MenuFactory;
         private ICommandBus CommandBus;
+        private IDocumentConnector documentConnector;
 
         private Dictionary<ObjectExplorerItem, List<ITreeNode>> nodesForItem;
 
@@ -42,7 +43,8 @@ namespace SqlEasyStudio.UI.Presenters
             ObjectExplorerRepositoryFactory = Container.Resolve<IObjectExplorerRepositoryFactory>();
             MenuFactory = Container.Resolve<IMenuFactory>();
             CommandBus = Container.Resolve<ICommandBus>();
-            DocumentConnector.DocumentConnected += DocumentConnector_DocumentConnected;
+            documentConnector = Container.Resolve<IDocumentConnector>();
+            documentConnector.DocumentConnected += DocumentConnector_DocumentConnected;
         }
 
         private void DocumentConnector_DocumentConnected(object sender, DocumentConnectedEvent e)

@@ -4,11 +4,6 @@ using SqlEasyStudio.Application.QueryExecution;
 using SqlEasyStudio.Infrastructure.IoC;
 using SqlEasyStudio.Infrastructure.IoC.Container;
 using SqlEasyStudio.Infrastructure.Messaging;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace SqlEasyStudio.Application.Handlers
 {
@@ -16,10 +11,12 @@ namespace SqlEasyStudio.Application.Handlers
     public class ExecuteCommandHandler : ICommandHandler<ExecuteCommand>
     {
         IContainer container;
+        IDocumentConnector documentConnector;
 
         public ExecuteCommandHandler()
         {
             container = ContainerDelivery.GetContainer();
+            documentConnector = container.Resolve<IDocumentConnector>();
         }
 
         public void Handle(ExecuteCommand command)
@@ -53,7 +50,7 @@ namespace SqlEasyStudio.Application.Handlers
 
         private IConnection GetDocumentConnection(IDocument document)
         {
-            return DocumentConnector.ConnectedDocuments[document].Connection;
+            return documentConnector.ConnectedDocuments[document].Connection;
         }
     }
 }
