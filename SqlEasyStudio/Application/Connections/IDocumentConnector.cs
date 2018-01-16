@@ -11,7 +11,9 @@ namespace SqlEasyStudio.Application.Connections
     {
         Dictionary<IDocument, ConnectionLink> ConnectedDocuments { get; }
         event EventHandler<DocumentConnectedEvent> DocumentConnected;
+        event EventHandler<DocumentConnectedEvent> DocumentDisconnected;
 
         void Connect(IDocument document, ObjectExplorerItem connectionItem);
+        void Disconnect(IDocument document);
     }
 }

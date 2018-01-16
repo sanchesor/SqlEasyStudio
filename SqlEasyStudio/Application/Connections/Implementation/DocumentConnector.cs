@@ -14,6 +14,7 @@ namespace SqlEasyStudio.Application.Connections.Implementation
     {
         public Dictionary<IDocument, ConnectionLink> ConnectedDocuments { get; }
         public event EventHandler<DocumentConnectedEvent> DocumentConnected;
+        public event EventHandler<DocumentConnectedEvent> DocumentDisconnected;
 
         public DocumentConnector()
         {
@@ -32,10 +33,28 @@ namespace SqlEasyStudio.Application.Connections.Implementation
             DocumentConnected.Invoke(null, new DocumentConnectedEvent(document, connectionLink));
         }
 
+        public void Disconnect(IDocument document)
+        {
+            AssertConnected(document);
+
+            var connectionLink = ConnectedDocuments[document];
+            var connection = connectionLink.Connection;
+            connection.Close();
+            ConnectedDocuments.Remove(document);
+
+            DocumentDisconnected?.Invoke(null, new DocumentConnectedEvent(document, connectionLink));
+        }
+
         private void AssertNotConnected(IDocument document)
         {
             if (ConnectedDocuments.ContainsKey(document))
-                throw new Exception("Document already connected");
+                throw new Exception("Document already connected.");
+        }
+
+        private void AssertConnected(IDocument document)
+        {
+            if (!ConnectedDocuments.ContainsKey(document))
+                throw new Exception("Document not connected.");
         }
 
         private IConnection CreateConnectionFromItem(ObjectExplorerItem item)
@@ -47,5 +66,6 @@ namespace SqlEasyStudio.Application.Connections.Implementation
             return connectionFactory.Create(item.Data as string);
 
         }
+
     }
 }
