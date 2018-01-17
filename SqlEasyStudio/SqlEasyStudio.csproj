@@ -127,7 +127,7 @@
     <Compile Include="Database\Implementation\QueryExecutionResult.cs" />
     <Compile Include="Database\Implementation\QueryExecutionResultCollection.cs" />
     <Compile Include="Domain\Repositories\IObjectExplorerRepository.cs" />
-    <Compile Include="Domain\Repositories\IObjectExplorerRepositoryFactory.cs" />
+    <Compile Include="Domain\Factories\IObjectExplorerRepositoryFactory.cs" />
     <Compile Include="Domain\ObjectExplorerItemType.cs" />
     <Compile Include="Domain\ObjectExplorerTree.cs" />
     <Compile Include="Domain\ObjectExplorerItem.cs" />

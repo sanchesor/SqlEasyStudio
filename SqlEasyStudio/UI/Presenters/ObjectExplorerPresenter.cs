@@ -12,6 +12,7 @@ using SqlEasyStudio.Infrastructure.Messaging;
 using SqlEasyStudio.Domain.Enums;
 using SqlEasyStudio.Infrastructure.IoC.Container;
 using SqlEasyStudio.Application.Connections;
+using SqlEasyStudio.Domain.Factories;
 
 namespace SqlEasyStudio.UI.Presenters
 {
