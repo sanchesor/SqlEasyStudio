@@ -8,11 +8,12 @@ using System.Threading.Tasks;
 
 namespace SqlEasyStudio.Application.Commands
 {
+    // to think about: should ConnectCommand have just connectionstring or depend on connectionItem
     public class ConnectCommand
     {
-        public ObjectExplorerItem ConnectionItem { get; private set; }
+        public ConnectionItem ConnectionItem { get; private set; }
 
-        public ConnectCommand(ObjectExplorerItem connectionItem)
+        public ConnectCommand(ConnectionItem connectionItem)
         {
             ConnectionItem = connectionItem;
         }

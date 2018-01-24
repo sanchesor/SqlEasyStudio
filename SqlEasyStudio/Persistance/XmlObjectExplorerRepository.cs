@@ -5,6 +5,7 @@ using SqlEasyStudio.Domain;
 using SqlEasyStudio.Domain.Enums;
 using System;
 using SqlEasyStudio.Persistance.Exceptions;
+using SqlEasyStudio.Domain.Factories;
 
 namespace SqlEasyStudio.Persistance
 {
@@ -13,16 +14,21 @@ namespace SqlEasyStudio.Persistance
     {
         public string SourceFile { get; private set; }
 
+        private ObjectExplorerItemFactory itemFactory;
+
         public XmlObjectExplorerRepository(string xmlFile)
         {
             SourceFile = xmlFile;
+            itemFactory = new ObjectExplorerItemFactory();
         }
 
         public ObjectExplorerTree Load()
         {
             var tree = new ObjectExplorerTree();
 
-            var connectionsItem = new ObjectExplorerItem() { Name = "Connections", ItemType = ObjectExplorerItemType.Connections };
+            var connectionsItem = itemFactory.Create(ObjectExplorerItemType.Connections);
+            connectionsItem.Name = "Connections";            
+
             tree.Items.Add(connectionsItem);
 
             XmlDocument doc = new XmlDocument();
@@ -42,13 +48,10 @@ namespace SqlEasyStudio.Persistance
                     throw new InvalidConfigurationException(string.Format("Invalid configuration file: {0}.", SourceFile), null);
                 }
 
-                connectionsItem.Items.Add(
-                    new ObjectExplorerItem()
-                    {
-                        Name = n.Attributes["name"].Value,
-                        ItemType = ObjectExplorerItemType.Connection,
-                        Data = n.Attributes["connectionstring"].Value
-                    });                                        
+                var connectionItem = itemFactory.Create(ObjectExplorerItemType.Connection) as ConnectionItem;
+                connectionItem.Name = n.Attributes["name"].Value;
+                connectionItem.ConnectionString = n.Attributes["connectionstring"].Value;
+                connectionsItem.Items.Add(connectionItem);
             }
 
             return tree;

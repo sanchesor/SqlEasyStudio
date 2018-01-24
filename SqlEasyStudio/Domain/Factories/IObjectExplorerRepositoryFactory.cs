@@ -1,4 +1,6 @@
-﻿namespace SqlEasyStudio.Domain.Repositories
+﻿using SqlEasyStudio.Domain.Repositories;
+
+namespace SqlEasyStudio.Domain.Factories
 {
     public interface IObjectExplorerRepositoryFactory
     {

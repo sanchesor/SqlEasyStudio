@@ -1,4 +1,5 @@
-﻿using SqlEasyStudio.Domain.Repositories;
+﻿using SqlEasyStudio.Domain.Factories;
+using SqlEasyStudio.Domain.Repositories;
 using SqlEasyStudio.Infrastructure.IoC.Attributes;
 using SqlEasyStudio.PluginGateway;
 

@@ -3,7 +3,6 @@
     public enum ObjectExplorerItemType
     {
         Connection,
-        Connections,
-        Other
+        Connections
     }
 }

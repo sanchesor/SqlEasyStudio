@@ -50,7 +50,7 @@ namespace SqlEasyStudio.Application.Handlers
 
         private IConnection GetDocumentConnection(IDocument document)
         {
-            return documentConnector.ConnectedDocuments[document].Connection;
+            return documentConnector.GetConnectionForDocument(document).Connection;
         }
     }
 }

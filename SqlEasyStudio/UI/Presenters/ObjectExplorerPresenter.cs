@@ -12,6 +12,9 @@ using SqlEasyStudio.Infrastructure.Messaging;
 using SqlEasyStudio.Domain.Enums;
 using SqlEasyStudio.Infrastructure.IoC.Container;
 using SqlEasyStudio.Application.Connections;
+using SqlEasyStudio.Domain.Factories;
+using SqlEasyStudio.Application;
+using SqlEasyStudio.Application.Documents;
 
 namespace SqlEasyStudio.UI.Presenters
 {
@@ -24,6 +27,7 @@ namespace SqlEasyStudio.UI.Presenters
         private IMenuFactory MenuFactory;
         private ICommandBus CommandBus;
         private IDocumentConnector documentConnector;
+        private IDocumentsController documentsController;
 
         private Dictionary<ObjectExplorerItem, List<ITreeNode>> nodesForItem;
 
@@ -44,27 +48,80 @@ namespace SqlEasyStudio.UI.Presenters
             MenuFactory = Container.Resolve<IMenuFactory>();
             CommandBus = Container.Resolve<ICommandBus>();
 
+            documentsController = Container.Resolve<IDocumentsController>();
+            documentsController.DocumentActivationChanged += DocumentsController_DocumentActivationChanged;
+
             documentConnector = Container.Resolve<IDocumentConnector>();
-            documentConnector.DocumentConnected += DocumentConnector_DocumentConnected;
-            documentConnector.DocumentDisconnected += DocumentConnector_DocumentDisconnected;
+            documentConnector.ConnectingStarted += DocumentConnector_ConnectingStarted; 
+            documentConnector.ConnectingFinished += DocumentConnector_ConnectingFinished;
+            documentConnector.Disconnected += DocumentConnector_Disconnected;
         }
 
-        private void DocumentConnector_DocumentConnected(object sender, DocumentConnectionEvent e)
+        private void DocumentConnector_ConnectingStarted(object sender, DocumentConnectionEvent e)
         {
-            var item = e.ConnectionLink.ConnectionItem;
-            ApplyForItemNodes(item, (ITreeNode node) => 
+            SetItemNodeConnecting(e.ConnectionLink.Item);
+        }
+
+        private void DocumentConnector_ConnectingFinished(object sender, DocumentConnectionEvent e)
+        {            
+            if (e.ConnectionLink.Connection.Status == ConnectionStatus.Open)
+                SetItemNodeConnected(e.ConnectionLink.Item);
+            else
+                SetItemNodeConnectingFailed(e.ConnectionLink.Item);            
+        }
+        private void DocumentConnector_Disconnected(object sender, DocumentConnectionEvent e)
+        {
+            SetItemNodeDisconnected(e.ConnectionLink.Item);
+        }
+
+        private void DocumentsController_DocumentActivationChanged(object sender, DocumentActivationChangedEvent e)
+        {            
+            if (documentConnector.HasConnectedDocument(e.Document))
+            {
+                var connectionLink = documentConnector.GetConnectionForDocument(e.Document);
+                SetItemNodeActivated(connectionLink.Item, e.IsActive && connectionLink.Connection.Status == ConnectionStatus.Open);
+            }            
+        }
+        
+        private void SetItemNodeConnecting(ObjectExplorerItem item)
+        {
+            ApplyForItemNodes(item, (ITreeNode node) =>
+            {
+                node.Text = "[...wait...] " + item.Name;
+            });
+        }
+
+        private void SetItemNodeConnected(ObjectExplorerItem item)
+        {
+            ApplyForItemNodes(item, (ITreeNode node) =>
             {
                 node.Text = "[C] " + item.Name;
                 node.IsBold = true;
             });
         }
-        private void DocumentConnector_DocumentDisconnected(object sender, DocumentConnectionEvent e)
+
+        private void SetItemNodeDisconnected(ObjectExplorerItem item)
         {
-            var item = e.ConnectionLink.ConnectionItem;
             ApplyForItemNodes(item, (ITreeNode node) =>
             {
                 node.Text = item.Name;
                 node.IsBold = false;
+            });
+        }
+
+        private void SetItemNodeConnectingFailed(ObjectExplorerItem item)
+        {
+            ApplyForItemNodes(item, (ITreeNode node) =>
+            {
+                node.Text = "[Failed] " + item.Name;
+                node.IsBold = false;
+            });
+        }
+        private void SetItemNodeActivated(ObjectExplorerItem item, bool isActive)
+        {
+            ApplyForItemNodes(item, (ITreeNode node) =>
+            {
+                node.IsBold = isActive;
             });
         }
 
@@ -122,10 +179,11 @@ namespace SqlEasyStudio.UI.Presenters
                     }
                 case ObjectExplorerItemType.Connection:
                     {
+                        ConnectionItem connectionItem = objectExplorerItem as ConnectionItem;
                         return new IMenuItem[]
                             {
-                                MenuFactory.CreateMenuItem("Connect", () => CommandBus.Send(new ConnectCommand(objectExplorerItem)) ),
-                                MenuFactory.CreateMenuItem("Edit", () => CommandBus.Send(new ConnectionEditCommand(objectExplorerItem)) )                                
+                                MenuFactory.CreateMenuItem("Connect", () => CommandBus.Send(new ConnectCommand(connectionItem)) ),
+                                MenuFactory.CreateMenuItem("Edit", () => CommandBus.Send(new ConnectionEditCommand(connectionItem)) )                                
                             };
                     }
                 default:

@@ -9,6 +9,8 @@ using SqlEasyStudio.Infrastructure.IoC;
 using SqlEasyStudio.PluginGateway;
 using SqlEasyStudio.Infrastructure.Messaging;
 using SqlEasyStudio.Application.Commands;
+using SqlEasyStudio.Application.Documents;
+using SqlEasyStudio.Application;
 
 /// <summary>
 /// 
@@ -28,9 +30,20 @@ namespace Kbg.NppPluginNET
 
         private static IPluginFormProvider pluginFormProvider;
         private static ICommandBus commandBus;
+        private static IDocumentsController documentController;
 
         public static void OnNotification(ScNotification notification)
         {            
+            switch((NppMsg)notification.Header.Code)
+            {
+                case NppMsg.NPPN_BUFFERACTIVATED:
+                    {
+                        // todo: should be eventPublisher.publish(new event..) and objectExplorerPresenter should subscribe
+                        documentController.ActivateDocument(
+                            documentController.GetDocumentById(notification.Header.IdFrom));
+                    }
+                    break;
+            }
         }
 
 
@@ -42,8 +55,10 @@ namespace Kbg.NppPluginNET
             BootStrapper.RegisterComponents();
             BootStrapper.RegisterCommandHandlers();
 
-            pluginFormProvider = ContainerDelivery.GetContainer().Resolve<IPluginFormProvider>();
-            commandBus = ContainerDelivery.GetContainer().Resolve<ICommandBus>();
+            var container = ContainerDelivery.GetContainer();
+            pluginFormProvider = container.Resolve<IPluginFormProvider>();
+            commandBus = container.Resolve<ICommandBus>();
+            documentController = container.Resolve<IDocumentsController>();
 
             PluginBase.SetCommand(0, "Object explorer", ToggleObjectExplorer);
             PluginBase.SetCommand(1, "Output", ToggleOutput);

@@ -35,16 +35,15 @@ namespace SqlEasyStudio.Application.Handlers
             }
         }
 
-        private void Connect(ObjectExplorerItem item, IDocument document)
-        {
-            DisconnectCurrentIfAny(document);
-
-            documentConnector.Connect(document, item);
+        private void Connect(ConnectionItem item, IDocument document)
+        {            
+            DisconnectForDocument(document);
+            documentConnector.StartConnect(document, item);
         }
 
-        private void DisconnectCurrentIfAny(IDocument document)
+        private void DisconnectForDocument(IDocument document)
         {
-            if(documentConnector.ConnectedDocuments.ContainsKey(document))
+            if(documentConnector.HasActiveConnectionForDocument(document))
             {
                 documentConnector.Disconnect(document);
             }

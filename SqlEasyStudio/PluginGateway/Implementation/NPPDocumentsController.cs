@@ -4,6 +4,7 @@ using SqlEasyStudio.Infrastructure.IoC.Attributes;
 using SqlEasyStudio.Infrastructure.IoC.Container;
 using System;
 using System.Collections.Generic;
+using SqlEasyStudio.Application.Documents;
 
 namespace SqlEasyStudio.PluginGateway.Implementation
 {
@@ -14,16 +15,36 @@ namespace SqlEasyStudio.PluginGateway.Implementation
 
         public IDocument CurrentDocument
         {
-            get
+            get { return GetDocumentById(PluginBase.GetCurrentBufferId()); }
+        }
+
+        private IDocument previouslyActiveDocument;
+
+        // probably should not be here
+        public event EventHandler<DocumentActivationChangedEvent> DocumentActivationChanged;
+
+        public void ActivateDocument(IDocument document)
+        {
+            if (previouslyActiveDocument != null)
             {
-                IntPtr doc = PluginBase.GetCurrentBufferId();
-                if(!_docs.ContainsKey(doc))
-                {
-                    _docs.Add(doc, new NppDocument(doc));
-                }
-                return _docs[doc];
+                DocumentActivationChanged?.Invoke(null, new DocumentActivationChangedEvent {
+                    Document = previouslyActiveDocument, IsActive = false });
             }
-        }   
-        
+
+            DocumentActivationChanged?.Invoke(null, new DocumentActivationChangedEvent {
+                Document = document, IsActive = true });
+
+            previouslyActiveDocument = document;
+        }
+
+        public IDocument GetDocumentById(object docId)
+        {
+            IntPtr id = (IntPtr)docId;
+            if (!_docs.ContainsKey(id))
+            {
+                _docs.Add(id, new NppDocument(id));
+            }
+            return _docs[id];
+        }
     }
 }

@@ -9,9 +9,9 @@ namespace SqlEasyStudio.Application.Commands
 {
     public class ConnectionEditCommand
     {
-        public ObjectExplorerItem Item { get; private set; }
+        public ConnectionItem Item { get; private set; }
 
-        public ConnectionEditCommand(ObjectExplorerItem item)
+        public ConnectionEditCommand(ConnectionItem item)
         {
             Item = item;
         }
