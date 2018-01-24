@@ -11,9 +11,9 @@ namespace SqlEasyStudio.PluginGateway.Implementation
         {
             get
             {
-                int length = (int)Win32.SendMessage(_internalDocument, SciMsg.SCI_GETLENGTH, 0, 0);
+                int length = (int)Win32.SendMessage(PluginBase.GetCurrentScintilla(), SciMsg.SCI_GETLENGTH, 0, 0);
                 IntPtr ptrToText = Marshal.AllocHGlobal(length + 1);
-                Win32.SendMessage(_internalDocument, SciMsg.SCI_GETTEXT, length + 1, ptrToText);
+                Win32.SendMessage(PluginBase.GetCurrentScintilla(), SciMsg.SCI_GETTEXT, length + 1, ptrToText);
                 string textAnsi = Marshal.PtrToStringAnsi(ptrToText);
                 Marshal.FreeHGlobal(ptrToText);
 
@@ -25,9 +25,9 @@ namespace SqlEasyStudio.PluginGateway.Implementation
         {
             get
             {
-                int length = (int)Win32.SendMessage(_internalDocument, SciMsg.SCI_GETLENGTH, 0, 0);
+                int length = (int)Win32.SendMessage(PluginBase.GetCurrentScintilla(), SciMsg.SCI_GETLENGTH, 0, 0);
                 IntPtr ptrToText = Marshal.AllocHGlobal(length + 1);
-                Win32.SendMessage(_internalDocument, SciMsg.SCI_GETSELTEXT, length + 1, ptrToText);
+                Win32.SendMessage(PluginBase.GetCurrentScintilla(), SciMsg.SCI_GETSELTEXT, length + 1, ptrToText);
                 string textAnsi = Marshal.PtrToStringAnsi(ptrToText);
                 Marshal.FreeHGlobal(ptrToText);
 

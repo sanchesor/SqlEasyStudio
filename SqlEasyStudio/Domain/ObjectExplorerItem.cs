@@ -7,7 +7,6 @@ namespace SqlEasyStudio.Domain
     {
         public ObjectExplorerItemType ItemType { get; set; }
         public string Name { get; set; }
-        public object Data { get; set; }
         public List<ObjectExplorerItem> Items { get; set; }
 
         public ObjectExplorerItem()

@@ -4,12 +4,12 @@ namespace SqlEasyStudio.Application.Connections
 {
     public class ConnectionLink
     {
-        public ObjectExplorerItem ConnectionItem { get; private set; }
+        public ObjectExplorerItem Item { get; private set; }
         public IConnection Connection { get; private set; }
 
         public ConnectionLink(ObjectExplorerItem item, IConnection connection)
         {
-            ConnectionItem = item;
+            Item = item;
             Connection = connection;
         }
     }

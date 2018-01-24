@@ -12,60 +12,113 @@ namespace SqlEasyStudio.Application.Connections.Implementation
     [Component (LifeCycle = LifeCycle.Singleton)]
     public class DocumentConnector : IDocumentConnector
     {
-        public Dictionary<IDocument, ConnectionLink> ConnectedDocuments { get; }
+        // todo: refactor, get rid of connectionlink
+        private Dictionary<IDocument, ConnectionLink> Connections { get; }
 
-        public event EventHandler<DocumentConnectionEvent> DocumentConnected;
-        public event EventHandler<DocumentConnectionEvent> DocumentDisconnected;
+        public bool HasConnectedDocument(IDocument document)
+        {
+            return Connections.ContainsKey(document);
+        }
+
+        public bool HasActiveConnectionForDocument(IDocument document)
+        {
+            return Connections.ContainsKey(document) && Connections[document].Connection.Status != ConnectionStatus.Closed;
+        }
+
+        public ConnectionLink GetConnectionForDocument(IDocument document)
+        {
+            return Connections[document];
+        }
+
+        public event EventHandler<DocumentConnectionEvent> ConnectingStarted;
+        public event EventHandler<DocumentConnectionEvent> ConnectingFinished;
+        public event EventHandler<DocumentConnectionEvent> Disconnected;
 
         public DocumentConnector()
         {
-            ConnectedDocuments = new Dictionary<IDocument, ConnectionLink>();
+            Connections = new Dictionary<IDocument, ConnectionLink>();
         }
 
-        public void Connect(IDocument document, ObjectExplorerItem connectionItem)
+        public void Connect(IDocument document, ConnectionItem connectionItem)
         {
-            AssertNotConnected(document);
+            var connection = PrepareConnection(document, connectionItem);
+            connection.Open();            
+        }
 
-            var connection = CreateConnectionFromItem(connectionItem);
 
-            var connectionLink = new ConnectionLink(connectionItem, connection);
-            ConnectedDocuments.Add(document, connectionLink);
-
-            DocumentConnected.Invoke(null, new DocumentConnectionEvent(document, connectionLink));
+        public void StartConnect(IDocument document, ConnectionItem connectionItem)
+        {
+            var connection = PrepareConnection(document, connectionItem);
+            ConnectingStarted.Invoke(null, new DocumentConnectionEvent(document, Connections[document]));
+            connection.StartOpen();
+            
         }
 
         public void Disconnect(IDocument document)
         {
-            AssertConnected(document);
+            AssertIsActiveConnection(document);
 
-            var connectionLink = ConnectedDocuments[document];
+            var connectionLink = Connections[document];
             var connection = connectionLink.Connection;
-            connection.Close();
-            ConnectedDocuments.Remove(document);
 
-            DocumentDisconnected?.Invoke(null, new DocumentConnectionEvent(document, connectionLink));
+            connection.Close();
+            Disconnected?.Invoke(null, new DocumentConnectionEvent(document, connectionLink));
         }
 
-        private void AssertNotConnected(IDocument document)
+
+        public IConnection PrepareConnection(IDocument document, ConnectionItem connectionItem)
         {
-            if (ConnectedDocuments.ContainsKey(document))
+            AssertNoActiveConnection(document);
+
+            var connection = CreateConnectionFromItem(connectionItem);
+            var connectionLink = new ConnectionLink(connectionItem, connection);
+            if (!Connections.ContainsKey(document))
+                Connections.Add(document, null);
+            Connections[document] = connectionLink;
+
+            connection.Opened += Connection_Opened;
+            connection.OpenFailed += Connection_OpenFailed;
+
+            return connection;
+        }
+
+        private void Connection_Opened(object sender, EventArgs e)
+        {
+            HandleConnectionEvent(sender as IConnection,
+                (doc, conn) => ConnectingFinished.Invoke(null, new DocumentConnectionEvent(doc, conn)));
+        }
+
+        private void Connection_OpenFailed(object sender, EventArgs e)
+        {
+            HandleConnectionEvent(sender as IConnection,
+                (doc, conn) => ConnectingFinished.Invoke(null, new DocumentConnectionEvent(doc, conn)));
+        }
+
+        private void HandleConnectionEvent(IConnection connection, Action<IDocument, ConnectionLink> handler)
+        {
+            foreach (var doc in Connections.Keys)
+            {
+                if (Connections[doc].Connection == connection)
+                    handler.Invoke(doc, Connections[doc]);
+            }
+        }
+
+        private void AssertNoActiveConnection(IDocument document)
+        {
+            if(HasActiveConnectionForDocument(document))
                 throw new Exception("Document already connected.");
         }
 
-        private void AssertConnected(IDocument document)
+        private void AssertIsActiveConnection(IDocument document)
         {
-            if (!ConnectedDocuments.ContainsKey(document))
+            if (!HasActiveConnectionForDocument(document))
                 throw new Exception("Document not connected.");
         }
 
-        private IConnection CreateConnectionFromItem(ObjectExplorerItem item)
-        {
-            Validate.IsTrue(item.ItemType == ObjectExplorerItemType.Connection);
-
-            IConnectionFactory connectionFactory = ContainerDelivery.GetContainer().Resolve<IConnectionFactory>();
-            // todo: make async, connectionFactory.ConnectionCreated += .. (document, connectionLink)
-            return connectionFactory.Create(item.Data as string);
-
+        private IConnection CreateConnectionFromItem(ConnectionItem item)
+        {            
+            IConnectionFactory connectionFactory = ContainerDelivery.GetContainer().Resolve<IConnectionFactory>();            
+            return connectionFactory.Create(item.ConnectionString);
         }
 
     }
